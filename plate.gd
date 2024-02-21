@@ -12,6 +12,7 @@ func _ready() -> void:
 #Cooking Process
 func _process(_delta: float) -> void:
 	if Restaurant.order_queue.size() > 0 and available:
+		available = false
 		order = Restaurant.order_queue.pop_front()
 		#Cook timers
 		match order: 
@@ -23,13 +24,12 @@ func _process(_delta: float) -> void:
 				await get_tree().create_timer(salad_time).timeout
 		get_node("%Food/"+order).show()
 		show()
-		available = false		
+		
 #Pick up plate
-func _on_body_entered(body: Node2D) -> void:
-	print(name + str(available))	
+func _on_body_entered(body: Node2D) -> void:	
 	if body is Waiter:
 		body = body as Waiter
-		if !available and body.food_carried.size() < body.carry_capacity:
+		if visible and body.food_carried.size() < body.carry_capacity:
 			available = true
 			get_node("%Food/"+order).hide() 
 			body.pick_up_food(order)
