@@ -105,7 +105,7 @@ shape = SubResource("RectangleShape2D_ykbt0")
 
 [node name="HungerTimer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 30.0
+wait_time = 5.0
 one_shot = true
 
 [node name="FlickerTimerMan" type="Timer" parent="HungerTimer"]
@@ -117,7 +117,9 @@ unique_name_in_owner = true
 wait_time = 0.3
 
 [node name="ExitTimer" type="Timer" parent="."]
-wait_time = 30.0
+unique_name_in_owner = true
+wait_time = 5.0
+one_shot = true
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -128,4 +130,5 @@ shape = SubResource("RectangleShape2D_q860f")
 [connection signal="timeout" from="HungerTimer" to="." method="_on_hunger_timer_timeout"]
 [connection signal="timeout" from="HungerTimer/FlickerTimerMan" to="." method="_on_flicker_timer_man_timeout"]
 [connection signal="timeout" from="HungerTimer/FlickerTimerWoman" to="." method="_on_flicker_timer_woman_timeout"]
+[connection signal="timeout" from="ExitTimer" to="." method="_on_exit_timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

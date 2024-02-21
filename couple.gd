@@ -1,7 +1,8 @@
 class_name Couple
 extends CharacterBody2D
 
-static var test: int = 5
+var center: int = 722
+var off_screen: int = 960
 
 #Booleans
 var at_table: bool = false
@@ -10,6 +11,7 @@ var has_ordered: bool = false
 var order1_received: bool = false
 var order2_received: bool = false
 var hunger_started: bool = false
+var unsatisfied: bool = false
 
 #Find table
 var table_destination: Vector2
@@ -51,7 +53,7 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	#Go to table
-	if(!at_table):
+	if(!at_table and !unsatisfied):
 		if(global_position.y > table_destination.y + 10):
 			direction = Vector2.UP
 		elif(abs(global_position.x - table_destination.x) > 5):
@@ -82,8 +84,19 @@ func _physics_process(_delta: float) -> void:
 			%WomanOrder.show()
 		else:
 			%WomanOrder.hide()
-		#Receiving Food
-		
+	
+	#Unsatisfied customer(Exiting)
+	if unsatisfied:
+		if abs(global_position.x - center) > 2:
+			if global_position.x < center:
+				direction = Vector2.RIGHT
+			elif global_position.x > center:
+				direction = Vector2.LEFT
+		elif abs(global_position.y - off_screen) > 5:
+			direction = Vector2.DOWN
+		else:
+			queue_free()
+
 	#Movement
 	velocity = direction * speed
 	move_and_slide()
@@ -107,6 +120,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 
 
 func _on_hunger_timer_timeout() -> void:
+	%ExitTimer.start()
 	if !order1_received and !order2_received:
 		%FlickerTimerMan.start()
 		%FlickerTimerWoman.start()
@@ -132,3 +146,7 @@ func _on_flicker_timer_woman_timeout() -> void:
 		woman_food.visible = !woman_food.visible
 	else:
 		%FlickerTimerWoman.stop()
+
+#Exit when unsatisfied
+func _on_exit_timer_timeout() -> void:
+	unsatisfied = true

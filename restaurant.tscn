@@ -247,7 +247,7 @@ scale = Vector2(-1, 1)
 y_sort_enabled = true
 
 [node name="Couple" parent="Couples" instance=ExtResource("10_x7iyw")]
-position = Vector2(722, 816)
+position = Vector2(722, 817)
 
 [node name="Couple2" parent="Couples" instance=ExtResource("10_x7iyw")]
 position = Vector2(722, 816)
