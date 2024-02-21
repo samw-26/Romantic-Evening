@@ -30,8 +30,8 @@ texture = ExtResource("2_jrff5")
 
 [node name="ManOrder" type="Sprite2D" parent="Man"]
 unique_name_in_owner = true
-position = Vector2(8.9407e-08, -13.1667)
-scale = Vector2(0.6, 0.6)
+visible = false
+position = Vector2(0, -17)
 texture = ExtResource("3_3vs1d")
 
 [node name="Steak" type="Sprite2D" parent="Man/ManOrder"]
@@ -73,8 +73,8 @@ texture = ExtResource("5_nj5o6")
 
 [node name="WomanOrder" type="Sprite2D" parent="Woman"]
 unique_name_in_owner = true
-position = Vector2(0, -13.167)
-scale = Vector2(0.6, 0.6)
+visible = false
+position = Vector2(0, -17)
 texture = ExtResource("3_3vs1d")
 
 [node name="Steak" type="Sprite2D" parent="Woman/WomanOrder"]

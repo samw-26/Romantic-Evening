@@ -7,9 +7,6 @@ var chair_position: Vector2
 #Ordering
 var order_queue: Array 
 
-#Cook Time
-var food_dict: Dictionary = {"Steak": 6, "Spaghetti": 4, "Salad": 2}
-
 func _ready() -> void:
 	#Get array of chairs, get every even index chair
 	chairs = get_tree().get_nodes_in_group("chair")
@@ -26,3 +23,5 @@ func request_table() -> Vector2:
 func take_order(order1: String, order2: String):
 	order_queue.append(order1)
 	order_queue.append(order2)
+	for i in order_queue:
+		print(i)

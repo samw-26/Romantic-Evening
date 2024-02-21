@@ -1,9 +1,2 @@
 res://restaurant.tscn
-res://plate.tscn
-res://waiter.tscn
-res://couple.tscn
 res://couple.gd
-res://plate.gd
-res://restaurant.gd
-res://waiter.gd
-res://food.gd

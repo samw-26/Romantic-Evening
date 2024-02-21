@@ -9,7 +9,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fyqxo"]
 size = Vector2(28, 48)
 
-[node name="Plate" type="Area2D" groups=["plates"]]
+[node name="Plate" type="Area2D"]
 script = ExtResource("1_2ch5s")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -41,4 +41,10 @@ visible = false
 position = Vector2(0, 16)
 shape = SubResource("RectangleShape2D_fyqxo")
 
+[node name="PlateRespawn" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 5.0
+one_shot = true
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="PlateRespawn" to="." method="_on_plate_respawn_timeout"]
