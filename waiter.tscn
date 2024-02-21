@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dj6q5ws5kbjgj"]
+
+[ext_resource type="Script" path="res://waiter.gd" id="1_l15ge"]
+[ext_resource type="Texture2D" uid="uid://b3d6p84y81f8l" path="res://Assets/Characters/waiter.png" id="2_lxa45"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hvia1"]
+size = Vector2(48, 33)
+
+[node name="Waiter" type="CharacterBody2D"]
+collision_mask = 3
+script = ExtResource("1_l15ge")
+
+[node name="WaiterSprite" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(6, 6)
+texture = ExtResource("2_lxa45")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 22.5)
+shape = SubResource("RectangleShape2D_hvia1")

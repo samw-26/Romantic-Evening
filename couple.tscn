@@ -1,0 +1,117 @@
+[gd_scene load_steps=13 format=3 uid="uid://d4k7yy14qfd5d"]
+
+[ext_resource type="Script" path="res://couple.gd" id="1_2g2oi"]
+[ext_resource type="Texture2D" uid="uid://p0du68qm602j" path="res://Assets/Characters/man.png" id="2_jrff5"]
+[ext_resource type="Texture2D" uid="uid://c6o0klwqw2byb" path="res://Assets/Characters/speechbubble.png" id="3_3vs1d"]
+[ext_resource type="Texture2D" uid="uid://t0o6or3jhbog" path="res://Assets/Characters/woman.png" id="3_t44gg"]
+[ext_resource type="Texture2D" uid="uid://polfwku7m4mo" path="res://Assets/Characters/dress.png" id="4_18qwr"]
+[ext_resource type="Texture2D" uid="uid://bhvc2lkfnv1tl" path="res://Assets/Food/steak.png" id="4_j2fqa"]
+[ext_resource type="Texture2D" uid="uid://1jukbyg3apdg" path="res://Assets/Food/Spaghetti.png" id="5_ili6m"]
+[ext_resource type="Texture2D" uid="uid://dggg7py7qxiak" path="res://Assets/Characters/eyes.png" id="5_nj5o6"]
+[ext_resource type="Texture2D" uid="uid://b2vee5f37yhkq" path="res://Assets/Food/salad.png" id="6_hd04u"]
+[ext_resource type="Texture2D" uid="uid://bxnl2dty6yk7m" path="res://Assets/Characters/questionmark.png" id="7_ka36x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ykbt0"]
+size = Vector2(178, 25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q860f"]
+size = Vector2(160, 134)
+
+[node name="Couple" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 0
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_2g2oi")
+
+[node name="Man" type="Sprite2D" parent="."]
+scale = Vector2(6, 6)
+texture = ExtResource("2_jrff5")
+
+[node name="ManOrder" type="Sprite2D" parent="Man"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(0, -17)
+texture = ExtResource("3_3vs1d")
+
+[node name="Steak" type="Sprite2D" parent="Man/ManOrder"]
+visible = false
+position = Vector2(0, -1.16667)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("4_j2fqa")
+
+[node name="Spaghetti" type="Sprite2D" parent="Man/ManOrder"]
+visible = false
+position = Vector2(0, -2.00002)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("5_ili6m")
+
+[node name="Salad" type="Sprite2D" parent="Man/ManOrder"]
+visible = false
+position = Vector2(0, -2.00034)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("6_hd04u")
+
+[node name="Question" type="Sprite2D" parent="Man/ManOrder"]
+visible = false
+texture = ExtResource("7_ka36x")
+
+[node name="Woman" type="Sprite2D" parent="."]
+position = Vector2(142, 0)
+scale = Vector2(6, 6)
+texture = ExtResource("3_t44gg")
+
+[node name="Dress" type="Sprite2D" parent="Woman"]
+unique_name_in_owner = true
+texture = ExtResource("4_18qwr")
+metadata/_edit_lock_ = true
+
+[node name="Eyes" type="Sprite2D" parent="Woman"]
+unique_name_in_owner = true
+modulate = Color(0.129412, 0.360784, 0.85098, 1)
+texture = ExtResource("5_nj5o6")
+
+[node name="WomanOrder" type="Sprite2D" parent="Woman"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(0, -17)
+texture = ExtResource("3_3vs1d")
+
+[node name="Steak" type="Sprite2D" parent="Woman/WomanOrder"]
+visible = false
+position = Vector2(0, -1.16667)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("4_j2fqa")
+
+[node name="Spaghetti" type="Sprite2D" parent="Woman/WomanOrder"]
+visible = false
+position = Vector2(0, -2.00002)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("5_ili6m")
+
+[node name="Salad" type="Sprite2D" parent="Woman/WomanOrder"]
+visible = false
+position = Vector2(0, -2.00034)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("6_hd04u")
+
+[node name="Question" type="Sprite2D" parent="Woman/WomanOrder"]
+visible = false
+texture = ExtResource("7_ka36x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(71, 18.5)
+shape = SubResource("RectangleShape2D_ykbt0")
+
+[node name="HungerTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 30.0
+one_shot = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(71, 2)
+shape = SubResource("RectangleShape2D_q860f")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

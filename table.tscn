@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://f8qnj2x0y1cs"]
+
+[ext_resource type="Texture2D" uid="uid://bb2v8aci808ry" path="res://Assets/Restaurant/table.png" id="1_23l6n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oul7g"]
+size = Vector2(34, 8.25)
+
+[node name="Table" type="StaticBody2D"]
+collision_mask = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(6, 6)
+texture = ExtResource("1_23l6n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_oul7g")

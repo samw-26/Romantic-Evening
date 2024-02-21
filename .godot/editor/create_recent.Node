@@ -1,0 +1,11 @@
+Sprite2D
+Node2D
+Timer
+CollisionShape2D
+Area2D
+NavigationAgent2D
+NavigationObstacle2D
+NavigationRegion2D
+CharacterBody2D
+StaticBody2D
+TileMap
