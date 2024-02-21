@@ -2,7 +2,9 @@ class_name Couple
 extends CharacterBody2D
 
 var center: int = 722
+var row_diff: int = 80
 var off_screen: int = 960
+var speed: int = 200
 
 #Booleans
 var at_table: bool = false
@@ -12,11 +14,12 @@ var order1_received: bool = false
 var order2_received: bool = false
 var hunger_started: bool = false
 var unsatisfied: bool = false
+var freed_table: bool = false
 
 #Find table
+var table: Node2D
 var table_destination: Vector2
 var direction: Vector2 = Vector2.ZERO
-var speed: int = 500
 
 #Ordering
 var order_options: Array = ["Steak","Spaghetti","Salad"]
@@ -41,7 +44,8 @@ func _ready() -> void:
 	%Eyes.set_modulate(random_eye_color)
 	
 	#Get random table
-	table_destination = Restaurant.request_table()
+	table = Restaurant.request_table()
+	table_destination = table.position
 	
 	#Choose orders
 	man_order = order_options.pick_random()
@@ -51,55 +55,76 @@ func _ready() -> void:
 	man_food = get_node("%ManOrder/"+man_order)
 	woman_food = get_node("%WomanOrder/"+woman_order)
 
-func _physics_process(_delta: float) -> void:
+func _process(_delta: float) -> void:
 	#Go to table
 	if(!at_table and !unsatisfied):
-		if(global_position.y > table_destination.y + 10):
-			direction = Vector2.UP
-		elif(abs(global_position.x - table_destination.x) > 5):
-			if(global_position.x > table_destination.x + 5):
-				direction = Vector2.LEFT
-			else:
-				direction = Vector2.RIGHT
-		else:
-			direction = Vector2.ZERO
-			at_table = true
-	
+		go_to_table()
 	#Dining
 	if(at_table):
 		#Ordering, wait for customers to decide
-		await get_tree().create_timer(2).timeout
-		ready_to_order = true
-		#Start getting hungy
-		if !hunger_started:
-			%HungerTimer.start()
-			hunger_started = true
-		#Man
-		if !order1_received:
-			%ManOrder.show()
-		else:
-			%ManOrder.hide()
-		#Woman
-		if !order2_received:
-			%WomanOrder.show()
-		else:
-			%WomanOrder.hide()
-	
+		if !ready_to_order:
+			await get_tree().create_timer(2).timeout
+			ready_to_order = true
+		if !order1_received or !order2_received:
+			order()
 	#Unsatisfied customer(Exiting)
 	if unsatisfied:
-		if abs(global_position.x - center) > 2:
-			if global_position.x < center:
-				direction = Vector2.RIGHT
-			elif global_position.x > center:
-				direction = Vector2.LEFT
-		elif abs(global_position.y - off_screen) > 5:
-			direction = Vector2.DOWN
-		else:
-			queue_free()
+		exit_restaurant()
 
 	#Movement
 	velocity = direction * speed
 	move_and_slide()
+
+#Go to table
+func go_to_table() -> void:
+	if(global_position.y > table_destination.y + row_diff):
+		direction = Vector2.UP
+	elif(abs(global_position.x - table_destination.x) > 5):
+		if(global_position.x > table_destination.x + 5):
+			direction = Vector2.LEFT
+		else:
+			direction = Vector2.RIGHT
+	elif(global_position.y > table_destination.y + 15):
+			direction = Vector2.UP
+	else:
+		direction = Vector2.ZERO
+		at_table = true
+
+#Exit Restaurant
+func exit_restaurant() -> void:
+	if(!freed_table):
+		Restaurant.available_chairs.append(table)
+		%ManOrder.hide()
+		%WomanOrder.hide()
+		freed_table = true
+	if (global_position.y < table_destination.y + row_diff):
+		direction = Vector2.DOWN
+	elif abs(global_position.x - center) > 2:
+		if global_position.x < center:
+			direction = Vector2.RIGHT
+		elif global_position.x > center:
+			direction = Vector2.LEFT
+	elif abs(global_position.y - off_screen) > 5:
+		direction = Vector2.DOWN
+	else:
+		Restaurant.couple_count -= 1
+		queue_free()
+#Ordering
+func order() -> void:
+	#Start getting hungy
+	if !hunger_started:
+		%HungerTimer.start()
+		hunger_started = true
+	#Man
+	if !order1_received:
+		%ManOrder.show()
+	else:
+		%ManOrder.hide()
+	#Woman
+	if !order2_received:
+		%WomanOrder.show()
+	else:
+		%WomanOrder.hide()
 
 #Take Order
 func _on_area_2d_body_entered(body: Node2D) -> void:
@@ -150,3 +175,5 @@ func _on_flicker_timer_woman_timeout() -> void:
 #Exit when unsatisfied
 func _on_exit_timer_timeout() -> void:
 	unsatisfied = true
+	$Area2D.monitoring = false
+	at_table = false

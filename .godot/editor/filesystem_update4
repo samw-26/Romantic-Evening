@@ -1,7 +1,7 @@
 res://restaurant.tscn
+res://restaurant.gd
 res://plate.tscn
 res://waiter.tscn
 res://couple.tscn
-res://plate.gd
-res://restaurant.gd
 res://couple.gd
+res://Assets/Scenes/couple.tscn

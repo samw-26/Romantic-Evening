@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="Romantic Evening"
-run/main_scene="res://restaurant.tscn"
+run/main_scene="res://Assets/Scenes/restaurant.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
 
-Restaurant="*res://restaurant.gd"
+Restaurant="*res://Assets/Scenes/restaurant.gd"
 
 [debug]
 
@@ -29,6 +29,10 @@ window/size/viewport_width=1600
 window/size/viewport_height=900
 window/stretch/mode="viewport"
 window/stretch/aspect="ignore"
+
+[filesystem]
+
+import/blender/enabled=false
 
 [input]
 

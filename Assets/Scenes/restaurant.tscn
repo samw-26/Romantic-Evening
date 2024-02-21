@@ -1,17 +1,16 @@
-[gd_scene load_steps=23 format=3 uid="uid://cswo4n3ie6y7x"]
+[gd_scene load_steps=22 format=3 uid="uid://cswo4n3ie6y7x"]
 
-[ext_resource type="Script" path="res://restaurant.gd" id="1_gjta4"]
+[ext_resource type="Script" path="res://Assets/Scenes/restaurant.gd" id="1_gjta4"]
 [ext_resource type="Texture2D" uid="uid://1uwv1qr6ai1q" path="res://Assets/Restaurant/WoodFloor1.png" id="2_6ls2i"]
 [ext_resource type="Texture2D" uid="uid://ck8u0c0rago6y" path="res://Assets/Restaurant/WoodFloor2.png" id="2_b8t3e"]
-[ext_resource type="PackedScene" uid="uid://dj6q5ws5kbjgj" path="res://waiter.tscn" id="2_fgvdu"]
+[ext_resource type="PackedScene" uid="uid://dj6q5ws5kbjgj" path="res://Assets/Scenes/waiter.tscn" id="2_fgvdu"]
 [ext_resource type="Texture2D" uid="uid://bnowjroueg6ko" path="res://Assets/Restaurant/WoodFloor3.png" id="3_5l6he"]
 [ext_resource type="Texture2D" uid="uid://bxdvgs8ysbepq" path="res://Assets/Restaurant/white.png" id="3_rkp72"]
 [ext_resource type="Texture2D" uid="uid://csv3fyqlmrihs" path="res://Assets/Restaurant/bar.png" id="4_7xopk"]
-[ext_resource type="PackedScene" uid="uid://f8qnj2x0y1cs" path="res://table.tscn" id="5_1mjg2"]
-[ext_resource type="PackedScene" uid="uid://voiqnn8bhniv" path="res://chair.tscn" id="8_xtd84"]
-[ext_resource type="PackedScene" uid="uid://d4k7yy14qfd5d" path="res://couple.tscn" id="10_x7iyw"]
+[ext_resource type="PackedScene" uid="uid://f8qnj2x0y1cs" path="res://Assets/Scenes/table.tscn" id="5_1mjg2"]
+[ext_resource type="PackedScene" uid="uid://voiqnn8bhniv" path="res://Assets/Scenes/chair.tscn" id="8_xtd84"]
 [ext_resource type="Texture2D" uid="uid://csibl51krhjh2" path="res://Assets/Restaurant/carpet.png" id="11_pklt8"]
-[ext_resource type="PackedScene" uid="uid://dn85x2w8551o8" path="res://plate.tscn" id="11_t3kre"]
+[ext_resource type="PackedScene" uid="uid://dn85x2w8551o8" path="res://Assets/Scenes/plate.tscn" id="11_t3kre"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u3v86"]
 texture = ExtResource("2_6ls2i")
@@ -246,42 +245,6 @@ scale = Vector2(-1, 1)
 [node name="Couples" type="Node2D" parent="."]
 y_sort_enabled = true
 
-[node name="Couple" parent="Couples" instance=ExtResource("10_x7iyw")]
-position = Vector2(722, 817)
-
-[node name="Couple2" parent="Couples" instance=ExtResource("10_x7iyw")]
-position = Vector2(722, 816)
-
-[node name="Couple3" parent="Couples" instance=ExtResource("10_x7iyw")]
-position = Vector2(722, 816)
-
-[node name="Couple4" parent="Couples" instance=ExtResource("10_x7iyw")]
-position = Vector2(722, 816)
-
-[node name="Couple5" parent="Couples" instance=ExtResource("10_x7iyw")]
-position = Vector2(722, 816)
-
-[node name="Couple6" parent="Couples" instance=ExtResource("10_x7iyw")]
-position = Vector2(722, 816)
-
-[node name="Couple7" parent="Couples" instance=ExtResource("10_x7iyw")]
-position = Vector2(722, 816)
-
-[node name="Couple8" parent="Couples" instance=ExtResource("10_x7iyw")]
-position = Vector2(722, 816)
-
-[node name="Couple9" parent="Couples" instance=ExtResource("10_x7iyw")]
-position = Vector2(722, 816)
-
-[node name="Couple10" parent="Couples" instance=ExtResource("10_x7iyw")]
-position = Vector2(722, 816)
-
-[node name="Couple11" parent="Couples" instance=ExtResource("10_x7iyw")]
-position = Vector2(722, 816)
-
-[node name="Couple12" parent="Couples" instance=ExtResource("10_x7iyw")]
-position = Vector2(722, 816)
-
 [node name="Bar" type="Node2D" parent="."]
 
 [node name="Plate1" parent="Bar" instance=ExtResource("11_t3kre")]
@@ -328,3 +291,12 @@ position = Vector2(1120, 26)
 unique_name_in_owner = true
 y_sort_enabled = true
 position = Vector2(800, 178)
+
+[node name="SpawnPoint" type="Marker2D" parent="."]
+position = Vector2(722, 961)
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="ready" from="." to="." method="_on_ready"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
