@@ -9,6 +9,7 @@ var ready_to_order: bool = false
 var has_ordered: bool = false
 var order1_received: bool = false
 var order2_received: bool = false
+var hunger_started: bool = false
 
 #Find table
 var table_destination: Vector2
@@ -19,6 +20,8 @@ var speed: int = 500
 var order_options: Array = ["Steak","Spaghetti","Salad"]
 var man_order: String
 var woman_order: String
+var man_food: Sprite2D
+var woman_food: Sprite2D
 
 #Moods
 var moods: Array = ["Hungry", "Awkward", "Unromantic"]
@@ -41,6 +44,10 @@ func _ready() -> void:
 	#Choose orders
 	man_order = order_options.pick_random()
 	woman_order = order_options.pick_random()
+	
+	#Food node
+	man_food = get_node("%ManOrder/"+man_order)
+	woman_food = get_node("%WomanOrder/"+woman_order)
 
 func _physics_process(_delta: float) -> void:
 	#Go to table
@@ -62,8 +69,9 @@ func _physics_process(_delta: float) -> void:
 		await get_tree().create_timer(2).timeout
 		ready_to_order = true
 		#Start getting hungy
-		if %HungerTimer.is_stopped:
+		if !hunger_started:
 			%HungerTimer.start()
+			hunger_started = true
 		#Man
 		if !order1_received:
 			%ManOrder.show()
@@ -88,11 +96,39 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			has_ordered = true
 			%ManOrder/Question.hide()
 			%WomanOrder/Question.hide()
-			get_node("%ManOrder/"+man_order).show()
-			get_node("%WomanOrder/"+woman_order).show()
+			man_food.show()
+			woman_food.show()
 			Restaurant.take_order(man_order,woman_order)
 		elif has_ordered:
 			if !order1_received:
 				order1_received = body.serve_food(man_order)
 			if !order2_received:
 				order2_received = body.serve_food(woman_order)
+
+
+func _on_hunger_timer_timeout() -> void:
+	if !order1_received and !order2_received:
+		%FlickerTimerMan.start()
+		%FlickerTimerWoman.start()
+	elif !order1_received:
+		%FlickerTimerMan.start()
+	elif !order2_received:
+		%FlickerTimerWoman.start()
+
+func _on_flicker_timer_man_timeout() -> void:
+	var question = %ManOrder/Question
+	if !has_ordered:
+		question.visible = !question.visible
+	elif has_ordered and !order1_received:
+		man_food.visible = !man_food.visible
+	else:
+		%FlickerTimerMan.stop()
+
+func _on_flicker_timer_woman_timeout() -> void:
+	var question = %WomanOrder/Question
+	if !has_ordered:
+		question.visible = !question.visible
+	elif has_ordered and !order2_received:
+		woman_food.visible = !woman_food.visible
+	else:
+		%FlickerTimerWoman.stop()

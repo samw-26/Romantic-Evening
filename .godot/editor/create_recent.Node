@@ -1,6 +1,6 @@
+Timer
 Sprite2D
 Node2D
-Timer
 CollisionShape2D
 Area2D
 NavigationAgent2D
