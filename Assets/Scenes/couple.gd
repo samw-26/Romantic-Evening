@@ -46,7 +46,8 @@ func _ready() -> void:
 	man_order = order_options.pick_random()
 	woman_order = order_options.pick_random()
 	meal_timer = %MealTimer as Timer
-	#meal_timer.set_wait_time(randi_range(10,20))
+	meal_timer.set_wait_time(randi_range(30,90))
+	print(meal_timer.wait_time)
 	#Nodes
 	man_bubble = get_node("%ManOrder")
 	man_question = %ManOrder/Question

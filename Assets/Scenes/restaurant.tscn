@@ -1,9 +1,10 @@
-[gd_scene load_steps=22 format=3 uid="uid://cswo4n3ie6y7x"]
+[gd_scene load_steps=23 format=3 uid="uid://cswo4n3ie6y7x"]
 
 [ext_resource type="Script" path="res://Assets/Scenes/restaurant.gd" id="1_gjta4"]
 [ext_resource type="Texture2D" uid="uid://1uwv1qr6ai1q" path="res://Assets/Restaurant/WoodFloor1.png" id="2_6ls2i"]
 [ext_resource type="Texture2D" uid="uid://ck8u0c0rago6y" path="res://Assets/Restaurant/WoodFloor2.png" id="2_b8t3e"]
 [ext_resource type="PackedScene" uid="uid://dj6q5ws5kbjgj" path="res://Assets/Scenes/waiter.tscn" id="2_fgvdu"]
+[ext_resource type="Texture2D" uid="uid://ba4g5o7n8h2ba" path="res://Assets/UI/notepad.png" id="2_s3gyt"]
 [ext_resource type="Texture2D" uid="uid://bnowjroueg6ko" path="res://Assets/Restaurant/WoodFloor3.png" id="3_5l6he"]
 [ext_resource type="Texture2D" uid="uid://bxdvgs8ysbepq" path="res://Assets/Restaurant/white.png" id="3_rkp72"]
 [ext_resource type="Texture2D" uid="uid://csv3fyqlmrihs" path="res://Assets/Restaurant/bar.png" id="4_7xopk"]
@@ -101,6 +102,57 @@ sources/1 = SubResource("TileSetAtlasSource_m10f0")
 [node name="Restaurant" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_gjta4")
+
+[node name="UI" type="Node" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="UI"]
+
+[node name="NotepadControl" type="Control" parent="UI/CanvasLayer"]
+layout_mode = 3
+anchor_left = 0.962
+anchor_top = 0.01
+anchor_right = 1.0
+anchor_bottom = 0.011
+offset_left = 26.2
+offset_right = 5.3999
+grow_horizontal = 0
+scale = Vector2(0.75, 0.75)
+metadata/_edit_group_ = true
+
+[node name="Notepad" type="Sprite2D" parent="UI/CanvasLayer/NotepadControl"]
+position = Vector2(-87.7501, 135)
+scale = Vector2(16.7667, 15)
+texture = ExtResource("2_s3gyt")
+region_enabled = true
+region_rect = Rect2(4, 2, 15, 19)
+
+[node name="Tips" type="Label" parent="UI/CanvasLayer/NotepadControl"]
+unique_name_in_owner = true
+texture_filter = 2
+layout_mode = 0
+offset_left = -184.2
+offset_top = 105.814
+offset_right = -60.2
+offset_bottom = 147.814
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "Tips: $0"
+
+[node name="Quota" type="Label" parent="UI/CanvasLayer/NotepadControl"]
+unique_name_in_owner = true
+texture_filter = 2
+layout_mode = 0
+offset_left = -184.2
+offset_top = 62.2429
+offset_right = -10.2
+offset_bottom = 104.243
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "Quota: $500"
 
 [node name="TileMap" type="TileMap" parent="."]
 scale = Vector2(4, 4)
@@ -296,6 +348,6 @@ position = Vector2(800, 178)
 position = Vector2(722, 961)
 
 [node name="SpawnTimer" type="Timer" parent="."]
-wait_time = 60.0
+wait_time = 15.0
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

@@ -1,11 +1,4 @@
 res://Assets/Scenes/restaurant.tscn
-res://Assets/Scenes/restaurant.gd
 res://Assets/Scenes/plate.tscn
 res://Assets/Scenes/waiter.tscn
 res://Assets/Scenes/couple.tscn
-res://Assets/Scenes/plate.gd
-res://test.gd
-res://test2.gd
-res://Assets/Scenes/couple.gd
-res://Assets/Scenes/global.gd
-res://Assets/Scenes/waiter.gd
