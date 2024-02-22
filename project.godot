@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Restaurant="*res://Assets/Scenes/restaurant.gd"
+Global="*res://Assets/Scenes/global.gd"
 
 [debug]
 

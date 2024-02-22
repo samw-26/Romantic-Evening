@@ -9,22 +9,12 @@ var salad_time: int = 2
 func _ready() -> void:
 	hide()
 
-#Cooking Process
-func _process(_delta: float) -> void:
-	if Restaurant.order_queue.size() > 0 and available:
-		available = false
-		order = Restaurant.order_queue.pop_front()
-		#Cook timers
-		match order: 
-			"Steak":
-				await get_tree().create_timer(steak_time).timeout
-			"Spaghetti":
-				await get_tree().create_timer(spaghetti_time).timeout
-			"Salad":
-				await get_tree().create_timer(salad_time).timeout
-		get_node("%Food/"+order).show()
-		show()
-		
+func food_ready(food: String) -> void:
+	order = food
+	available = false
+	get_node("%Food/"+order).show()
+	show()
+
 #Pick up plate
 func _on_body_entered(body: Node2D) -> void:	
 	if body is Waiter:

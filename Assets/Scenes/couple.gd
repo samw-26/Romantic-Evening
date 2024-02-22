@@ -44,7 +44,7 @@ func _ready() -> void:
 	%Eyes.set_modulate(random_eye_color)
 	
 	#Get random table
-	table = Restaurant.request_table()
+	table = Global.request_table()
 	table_destination = table.position
 	
 	#Choose orders
@@ -93,7 +93,7 @@ func go_to_table() -> void:
 #Exit Restaurant
 func exit_restaurant() -> void:
 	if(!freed_table):
-		Restaurant.available_chairs.append(table)
+		Global.available_chairs.append(table)
 		%ManOrder.hide()
 		%WomanOrder.hide()
 		freed_table = true
@@ -107,7 +107,7 @@ func exit_restaurant() -> void:
 	elif abs(global_position.y - off_screen) > 5:
 		direction = Vector2.DOWN
 	else:
-		Restaurant.couple_count -= 1
+		Global.couple_count -= 1
 		queue_free()
 #Ordering
 func order() -> void:
@@ -136,7 +136,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			%WomanOrder/Question.hide()
 			man_food.show()
 			woman_food.show()
-			Restaurant.take_order(man_order,woman_order)
+			Global.take_order(man_order,woman_order)
 		elif has_ordered:
 			if !order1_received:
 				order1_received = body.serve_food(man_order)
