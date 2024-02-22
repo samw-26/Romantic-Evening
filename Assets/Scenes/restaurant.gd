@@ -30,4 +30,5 @@ func spawn_couple() -> void:
 #End day
 func _on_clock_timeout() -> void:
 	Global.closing = true
-	print("Closing time")
+	Global.clock_label.text = "10:00pm"
+	%SpawnTimer.stop()

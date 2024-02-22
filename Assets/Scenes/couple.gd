@@ -76,29 +76,31 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	#Go to table
-	if(!at_table and !unsatisfied):
-		go_to_table()
-	#Dining
-	if(at_table):
-		#Ordering, wait for customers to decide
-		if !ready_to_order:
-			await get_tree().create_timer(2).timeout
-			ready_to_order = true
-		elif ready_to_order and !eating:
-			order()
-		#Eating 
-		elif eating:
-			if meal_timer.is_stopped():
-				meal_timer.start()
-	#Finished
-	if finished:
-		exit_restaurant()
+	if !Global.closing:
+		#Go to table
+		if(!at_table and !unsatisfied):
+			go_to_table()
+		#Dining
+		if(at_table):
+			#Ordering, wait for customers to decide
+			if !ready_to_order:
+				await get_tree().create_timer(2).timeout
+				ready_to_order = true
+			elif ready_to_order and !eating:
+				order()
+			#Eating 
+			elif eating:
+				if meal_timer.is_stopped():
+					meal_timer.start()
+		#Finished
+		if finished:
+			exit_restaurant()
 
-	#Unsatisfied customer(Exiting)
-	if unsatisfied:
+		#Unsatisfied customer(Exiting)
+		if unsatisfied:
+			exit_restaurant()
+	if Global.closing:
 		exit_restaurant()
-
 	#Movement
 	velocity = direction * speed
 	move_and_slide()

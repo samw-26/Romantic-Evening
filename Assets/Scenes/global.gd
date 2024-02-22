@@ -28,9 +28,9 @@ var closing: bool = false
 #Game loop
 func _process(_delta: float) -> void:
 	#When nodes are ready
-	if game_started:
+	if game_started and !closing:
 		#Clock
-		if clock_timer.is_stopped() and !closing:
+		if clock_timer.is_stopped():
 			clock_timer.start()
 		var hour: String = str(int((300+300-clock_timer.time_left)/60))
 		var minutes: String = str(int((300+300-clock_timer.time_left))%60)
