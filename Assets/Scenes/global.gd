@@ -15,13 +15,29 @@ var game_started: bool = false
 
 #Waiter
 var waiter: Waiter
+
+#UI
 var tip: int = 0
 var tip_label: Label
 var quota_label: Label
+var time_left: float 
+var clock_label: Label
+var clock_timer: Timer
+var closing: bool = false
 
 #Game loop
 func _process(_delta: float) -> void:
+	#When nodes are ready
 	if game_started:
+		#Clock
+		if clock_timer.is_stopped() and !closing:
+			clock_timer.start()
+		var hour: String = str(int((300+300-clock_timer.time_left)/60))
+		var minutes: String = str(int((300+300-clock_timer.time_left))%60)
+		if int(minutes) < 10:
+			minutes = str(0) + minutes
+		clock_label.text = hour+":"+minutes+"pm"
+		#Cooking
 		if !order_queue.is_empty():
 			cook(order_queue.pop_front())
 

@@ -43,14 +43,13 @@ var tip: int = 0
 var give_tip: bool = false
 
 #Moods
-var moods: Array = ["Hungry", "Awkward", "Unromantic"]
+var moods: Array = ["Hungry", "Unromantic", "Bored", "Grumpy", "Awkward"]
 
 func _ready() -> void:
 	#Choose orders and set meal duration
 	man_order = order_options.pick_random()
 	woman_order = order_options.pick_random()
 	meal_timer = %MealTimer as Timer
-	#meal_timer.set_wait_time(randi_range(30,90))
 	#Nodes
 	man_bubble = get_node("%ManOrder")
 	man_question = %ManOrder/Question

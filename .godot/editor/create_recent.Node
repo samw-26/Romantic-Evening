@@ -1,10 +1,10 @@
+Timer
+Label
 Control
 Sprite2D
 ColorRect
-Label
 Node
 CanvasLayer
-Timer
 Node2D
 Marker2D
 CollisionShape2D
@@ -12,4 +12,3 @@ Area2D
 NavigationAgent2D
 NavigationObstacle2D
 NavigationRegion2D
-CharacterBody2D

@@ -13,6 +13,8 @@ func _ready() -> void:
 	Global.waiter = %Waiter
 	Global.tip_label = %Tips
 	Global.quota_label = %Quota
+	Global.clock_label = %ClockLabel
+	Global.clock_timer = %Clock
 	Global.game_started = true
 
 func _on_spawn_timer_timeout() -> void:
@@ -24,3 +26,8 @@ func spawn_couple() -> void:
 	couple.global_position = $SpawnPoint.global_position
 	$Couples.add_child(couple)
 	Global.couple_count += 1
+
+#End day
+func _on_clock_timeout() -> void:
+	Global.closing = true
+	print("Closing time")
