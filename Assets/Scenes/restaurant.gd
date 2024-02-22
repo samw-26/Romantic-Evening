@@ -11,6 +11,8 @@ func _ready() -> void:
 	spawn_couple()
 	$SpawnTimer.start()
 	Global.waiter = %Waiter
+	Global.tip_label = %Tips
+	Global.quota_label = %Quota
 	Global.game_started = true
 
 func _on_spawn_timer_timeout() -> void:

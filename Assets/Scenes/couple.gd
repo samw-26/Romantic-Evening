@@ -38,6 +38,10 @@ var meal_timer: Timer
 var eating: bool = false
 var finished: bool = false
 
+#Tip
+var tip: int = 0
+var give_tip: bool = false
+
 #Moods
 var moods: Array = ["Hungry", "Awkward", "Unromantic"]
 
@@ -46,8 +50,7 @@ func _ready() -> void:
 	man_order = order_options.pick_random()
 	woman_order = order_options.pick_random()
 	meal_timer = %MealTimer as Timer
-	meal_timer.set_wait_time(randi_range(30,90))
-	print(meal_timer.wait_time)
+	#meal_timer.set_wait_time(randi_range(30,90))
 	#Nodes
 	man_bubble = get_node("%ManOrder")
 	man_question = %ManOrder/Question
@@ -153,12 +156,17 @@ func order() -> void:
 	#Stop timers, commence eating
 	if order1_received and order2_received:
 		eating = true
+		tip += 10
 		%StatusTimer.stop()
 		%ExitTimer.stop()
 
 #Exit Restaurant
 func exit_restaurant() -> void:
 	at_table = false
+	if !give_tip:
+		Global.tip += tip
+		Global.tip_label.text = "Tips: $" + str(Global.tip)
+		give_tip = true
 	if(!freed_table):
 		Global.available_chairs.append(table)
 		%ManOrder.hide()

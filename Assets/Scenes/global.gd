@@ -15,11 +15,12 @@ var game_started: bool = false
 
 #Waiter
 var waiter: Waiter
+var tip: int = 0
+var tip_label: Label
+var quota_label: Label
 
 #Game loop
 func _process(_delta: float) -> void:
-	#print("order queue: " + str(order_queue.size()))
-	#print("restaurant queue: " + str(Global.order_queue.size()))
 	if game_started:
 		if !order_queue.is_empty():
 			cook(order_queue.pop_front())
