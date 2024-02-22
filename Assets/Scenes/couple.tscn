@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://d4k7yy14qfd5d"]
+[gd_scene load_steps=14 format=3 uid="uid://d4k7yy14qfd5d"]
 
 [ext_resource type="Script" path="res://Assets/Scenes/couple.gd" id="1_n7npp"]
 [ext_resource type="Texture2D" uid="uid://p0du68qm602j" path="res://Assets/Characters/man.png" id="2_4acg5"]
@@ -11,11 +11,14 @@
 [ext_resource type="Texture2D" uid="uid://polfwku7m4mo" path="res://Assets/Characters/dress.png" id="9_c8ebl"]
 [ext_resource type="Texture2D" uid="uid://dggg7py7qxiak" path="res://Assets/Characters/eyes.png" id="10_xgc6x"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ykbt0"]
-size = Vector2(178, 25)
+[sub_resource type="CircleShape2D" id="CircleShape2D_el8w6"]
+radius = 17.5071
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bmfwy"]
+radius = 17.1828
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q860f"]
-size = Vector2(160, 134)
+size = Vector2(160, 124)
 
 [node name="Couple" type="CharacterBody2D" groups=["couples"]]
 collision_layer = 2
@@ -101,9 +104,19 @@ texture = ExtResource("6_mrt78")
 visible = false
 texture = ExtResource("7_1tdnp")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(71, 18.5)
-shape = SubResource("RectangleShape2D_ykbt0")
+[node name="ManCollision" type="CollisionShape2D" parent="."]
+position = Vector2(-1.5, 18.5)
+shape = SubResource("CircleShape2D_el8w6")
+
+[node name="WomanCollision" type="CollisionShape2D" parent="."]
+position = Vector2(143, 18.5)
+shape = SubResource("CircleShape2D_bmfwy")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(71, -3)
+shape = SubResource("RectangleShape2D_q860f")
 
 [node name="StatusTimer" type="Timer" parent="."]
 unique_name_in_owner = true
@@ -120,18 +133,18 @@ wait_time = 0.3
 
 [node name="ExitTimer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 30.0
+wait_time = 20.0
 one_shot = true
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="MealTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 5.0
+one_shot = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(71, 2)
-shape = SubResource("RectangleShape2D_q860f")
-
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
 [connection signal="timeout" from="StatusTimer" to="." method="_on_status_timer_timeout"]
 [connection signal="timeout" from="StatusTimer/FlickerTimerMan" to="." method="_on_flicker_timer_man_timeout"]
 [connection signal="timeout" from="StatusTimer/FlickerTimerWoman" to="." method="_on_flicker_timer_woman_timeout"]
 [connection signal="timeout" from="ExitTimer" to="." method="_on_exit_timer_timeout"]
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="timeout" from="MealTimer" to="." method="_on_meal_timer_timeout"]
