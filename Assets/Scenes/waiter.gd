@@ -2,12 +2,18 @@ class_name Waiter
 extends CharacterBody2D
 
 #Carrying food
-var food_carried: Array[String]
+var carrying: int = 0
+var food_carrying: Dictionary = {"Left":"", "Right":""}
 var carry_capacity: int = 2
-
+var first_plate: Sprite2D
+var second_plate: Sprite2D
 #Movement
 var direction: Vector2
 @export var speed: int = 300
+
+func _ready() -> void:
+	%Plate1.hide()
+	%Plate2.hide()
 
 func _process(_delta: float) -> void:
 	direction = Input.get_vector("left","right","up","down")
@@ -15,16 +21,31 @@ func _process(_delta: float) -> void:
 	move_and_slide()
 
 func pick_up_food(food: String):
-	food_carried.append(food)
+	if food_carrying["Left"].is_empty():
+		food_carrying["Left"] = food
+		carrying += 1
+		%Plate1.show()
+		get_node("%Plate1/"+food).show()
+	else:
+		food_carrying["Right"] = food
+		carrying += 1
+		%Plate2.show()
+		get_node("%Plate2/"+food).show()
 
 func serve_food(order: String) -> bool:
-	if food_carried.size() > 0:
-		var index = 0
-		for food in food_carried:
-			if food == order:
-				food_carried.pop_at(index)
-				return true
-			else:
-				index += 1
-				continue
+	if carrying > 0:
+		if food_carrying["Left"] == order:
+			var food = food_carrying["Left"]
+			food_carrying["Left"] = ""
+			carrying -= 1
+			get_node("%Plate1/"+food).hide()
+			%Plate1.hide()
+			return true
+		elif food_carrying["Right"] == order:
+			var food = food_carrying["Right"]
+			food_carrying["Right"] = ""
+			carrying -= 1
+			get_node("%Plate2/"+food).hide()
+			%Plate2.hide()
+			return true
 	return false

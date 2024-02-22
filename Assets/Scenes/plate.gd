@@ -12,7 +12,7 @@ func _ready() -> void:
 	
 func _process(_delta: float) -> void:
 	if in_range:
-		if visible and Global.waiter.food_carried.size() < Global.waiter.carry_capacity:
+		if visible and Global.waiter.carrying < Global.waiter.carry_capacity:
 			available = true
 			get_node("%Food/"+order).hide() 
 			Global.waiter.pick_up_food(order)
