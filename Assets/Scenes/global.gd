@@ -13,6 +13,9 @@ const max_couples: int = 12
 var couple_count: int = 0
 var game_started: bool = false
 
+#Waiter
+var waiter: Waiter
+
 #Game loop
 func _process(_delta: float) -> void:
 	#print("order queue: " + str(order_queue.size()))

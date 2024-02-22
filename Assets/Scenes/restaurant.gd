@@ -10,6 +10,7 @@ func _ready() -> void:
 	await get_tree().create_timer(2).timeout #Wait before starting spawning
 	spawn_couple()
 	$SpawnTimer.start()
+	Global.waiter = %Waiter
 	Global.game_started = true
 
 func _on_spawn_timer_timeout() -> void:

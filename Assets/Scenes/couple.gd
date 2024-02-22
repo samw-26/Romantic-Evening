@@ -15,16 +15,21 @@ var order2_received: bool = false
 var hunger_started: bool = false
 var unsatisfied: bool = false
 var freed_table: bool = false
+var in_range: bool = false
 
 #Find table
 var table: Node2D
 var table_destination: Vector2
 var direction: Vector2 = Vector2.ZERO
 
-#Ordering
+#Ordering/Dining
 var order_options: Array = ["Steak","Spaghetti","Salad"]
 var man_order: String
 var woman_order: String
+var man_bubble: Sprite2D
+var woman_bubble: Sprite2D
+var man_question: Sprite2D
+var woman_question: Sprite2D
 var man_food: Sprite2D
 var woman_food: Sprite2D
 
@@ -32,11 +37,22 @@ var woman_food: Sprite2D
 var moods: Array = ["Hungry", "Awkward", "Unromantic"]
 
 func _ready() -> void:
+	#Choose orders
+	man_order = order_options.pick_random()
+	woman_order = order_options.pick_random()
+	#Nodes
+	man_bubble = get_node("%ManOrder")
+	man_question = %ManOrder/Question
+	man_food = get_node("%ManOrder/"+man_order)
+	woman_bubble = get_node("%WomanOrder")
+	woman_question = %WomanOrder/Question
+	woman_food = get_node("%WomanOrder/"+woman_order)
 	#Setup
-	%ManOrder.hide()
-	%ManOrder/Question.show()
-	%WomanOrder.hide()
-	%WomanOrder/Question.show()
+	man_bubble.hide()
+	man_question.show()
+	woman_bubble.hide()
+	woman_question.show()
+
 	#Randomize woman
 	var random_eye_color = [Color.BLUE,Color.DARK_GREEN,Color.SADDLE_BROWN,Color.BLACK].pick_random()
 	var random_dress_color = [Color.BLUE,Color.DARK_VIOLET,Color.RED,Color.WEB_GREEN,Color.CORAL,Color.DARK_ORANGE,Color.DIM_GRAY,Color.WEB_PURPLE, Color.GRAY,Color.CRIMSON,Color.ORANGE,Color.ORANGE_RED].pick_random()
@@ -47,13 +63,7 @@ func _ready() -> void:
 	table = Global.request_table()
 	table_destination = table.position
 	
-	#Choose orders
-	man_order = order_options.pick_random()
-	woman_order = order_options.pick_random()
-	
-	#Food node
-	man_food = get_node("%ManOrder/"+man_order)
-	woman_food = get_node("%WomanOrder/"+woman_order)
+
 
 func _process(_delta: float) -> void:
 	#Go to table
@@ -65,7 +75,7 @@ func _process(_delta: float) -> void:
 		if !ready_to_order:
 			await get_tree().create_timer(2).timeout
 			ready_to_order = true
-		if !order1_received or !order2_received:
+		elif ready_to_order:
 			order()
 	#Unsatisfied customer(Exiting)
 	if unsatisfied:
@@ -90,6 +100,49 @@ func go_to_table() -> void:
 		direction = Vector2.ZERO
 		at_table = true
 
+#Ordering
+func order() -> void:
+	#Start getting hungy
+	if !hunger_started:
+		%StatusTimer.start()
+		hunger_started = true
+	#Man and woman show question mark bubbles
+	if !has_ordered and !man_bubble.visible and !woman_bubble.visible:
+		man_bubble.show()
+		woman_bubble.show()
+	
+	#Take order if in range
+	if in_range:
+		#Show food when in range and have not ordered
+		if !has_ordered:
+			has_ordered = true
+			man_question.hide()
+			woman_question.hide()
+			man_food.show()
+			woman_food.show()
+			Global.take_order(man_order,woman_order)
+		#Attempt to serve food if has ordered
+		elif has_ordered:
+			if !order1_received:
+				order1_received = Global.waiter.serve_food(man_order)
+				if order1_received:
+					man_food.hide()
+					man_bubble.hide()
+			if !order2_received:
+				order2_received = Global.waiter.serve_food(woman_order)
+				if order2_received:
+					woman_food.hide()
+					woman_bubble.hide()
+
+	#Stop status timer early if food given
+	if order1_received and order2_received and !%StatusTimer.is_stopped():
+		%StatusTimer.stop()
+	
+	#If both man and woman are pleased, stop exit timer
+	if %FlickerTimerMan.is_stopped() and %FlickerTimerWoman.is_stopped() and !%ExitTimer.is_stopped():
+		%ExitTimer.stop()
+	
+
 #Exit Restaurant
 func exit_restaurant() -> void:
 	if(!freed_table):
@@ -109,43 +162,20 @@ func exit_restaurant() -> void:
 	else:
 		Global.couple_count -= 1
 		queue_free()
-#Ordering
-func order() -> void:
-	#Start getting hungy
-	if !hunger_started:
-		%HungerTimer.start()
-		hunger_started = true
-	#Man
-	if !order1_received:
-		%ManOrder.show()
-	else:
-		%ManOrder.hide()
-	#Woman
-	if !order2_received:
-		%WomanOrder.show()
-	else:
-		%WomanOrder.hide()
 
 #Take Order
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body is Waiter:
-		body = body as Waiter
-		if !has_ordered and ready_to_order:
-			has_ordered = true
-			%ManOrder/Question.hide()
-			%WomanOrder/Question.hide()
-			man_food.show()
-			woman_food.show()
-			Global.take_order(man_order,woman_order)
-		elif has_ordered:
-			if !order1_received:
-				order1_received = body.serve_food(man_order)
-			if !order2_received:
-				order2_received = body.serve_food(woman_order)
+		in_range = true
+		
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	if body is Waiter:
+		in_range = false
 
-
-func _on_hunger_timer_timeout() -> void:
-	%ExitTimer.start()
+func _on_status_timer_timeout() -> void:
+	#Hunger status
+	if !order1_received or !order2_received:
+		%ExitTimer.start()
 	if !order1_received and !order2_received:
 		%FlickerTimerMan.start()
 		%FlickerTimerWoman.start()
@@ -155,18 +185,16 @@ func _on_hunger_timer_timeout() -> void:
 		%FlickerTimerWoman.start()
 
 func _on_flicker_timer_man_timeout() -> void:
-	var question = %ManOrder/Question
 	if !has_ordered:
-		question.visible = !question.visible
+		man_question.visible = !man_question.visible
 	elif has_ordered and !order1_received:
 		man_food.visible = !man_food.visible
 	else:
 		%FlickerTimerMan.stop()
 
 func _on_flicker_timer_woman_timeout() -> void:
-	var question = %WomanOrder/Question
 	if !has_ordered:
-		question.visible = !question.visible
+		woman_question.visible = !woman_question.visible
 	elif has_ordered and !order2_received:
 		woman_food.visible = !woman_food.visible
 	else:
@@ -177,3 +205,6 @@ func _on_exit_timer_timeout() -> void:
 	unsatisfied = true
 	$Area2D.monitoring = false
 	at_table = false
+
+
+
