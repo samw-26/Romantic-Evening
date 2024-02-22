@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cswo4n3ie6y7x"]
+[gd_scene load_steps=24 format=3 uid="uid://cswo4n3ie6y7x"]
 
 [ext_resource type="Script" path="res://Assets/Scenes/restaurant.gd" id="1_gjta4"]
 [ext_resource type="Texture2D" uid="uid://1uwv1qr6ai1q" path="res://Assets/Restaurant/WoodFloor1.png" id="2_6ls2i"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://voiqnn8bhniv" path="res://Assets/Scenes/chair.tscn" id="8_xtd84"]
 [ext_resource type="Texture2D" uid="uid://csibl51krhjh2" path="res://Assets/Restaurant/carpet.png" id="11_pklt8"]
 [ext_resource type="PackedScene" uid="uid://dn85x2w8551o8" path="res://Assets/Scenes/plate.tscn" id="11_t3kre"]
+[ext_resource type="PackedScene" uid="uid://cu2vrlxipumk5" path="res://Assets/Scenes/trash_can.tscn" id="12_1dcmu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u3v86"]
 texture = ExtResource("2_6ls2i")
@@ -350,6 +351,9 @@ position = Vector2(1056, 26)
 visible = false
 position = Vector2(1120, 26)
 
+[node name="TrashCan" parent="." instance=ExtResource("12_1dcmu")]
+position = Vector2(478, 31)
+
 [node name="Waiter" parent="." instance=ExtResource("2_fgvdu")]
 unique_name_in_owner = true
 y_sort_enabled = true
@@ -363,7 +367,7 @@ wait_time = 15.0
 
 [node name="Clock" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 5.0
+wait_time = 300.0
 one_shot = true
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

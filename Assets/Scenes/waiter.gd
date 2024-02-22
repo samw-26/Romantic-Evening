@@ -32,6 +32,22 @@ func pick_up_food(food: String):
 		%Plate2.show()
 		get_node("%Plate2/"+food).show()
 
+func trash_food() -> String:
+	var food = ""
+	if food_carrying["Right"] != "":
+		food = food_carrying["Right"]
+		food_carrying["Right"] = ""
+		carrying -= 1
+		get_node("%Plate2/"+food).hide()
+		%Plate2.hide()
+	elif food_carrying["Left"] != "":
+		food = food_carrying["Left"]
+		food_carrying["Left"] = ""
+		carrying -= 1
+		get_node("%Plate1/"+food).hide()
+		%Plate1.hide()
+	return food
+
 func serve_food(order: String) -> bool:
 	if carrying > 0:
 		if food_carrying["Left"] == order:

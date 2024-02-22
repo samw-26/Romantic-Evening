@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://cu2vrlxipumk5"]
+
+[ext_resource type="Script" path="res://Assets/Scenes/trash_can.gd" id="1_m5mm0"]
+[ext_resource type="Texture2D" uid="uid://v2etv5x52yfq" path="res://Assets/Restaurant/trash.png" id="1_uba0a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kjvpj"]
+size = Vector2(48, 31)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4sf17"]
+size = Vector2(48, 64)
+
+[node name="TrashCan" type="StaticBody2D"]
+script = ExtResource("1_m5mm0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(4, 4)
+texture = ExtResource("1_uba0a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -12.5)
+shape = SubResource("RectangleShape2D_kjvpj")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 35)
+shape = SubResource("RectangleShape2D_4sf17")
+debug_color = Color(1, 1, 1, 0.419608)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
