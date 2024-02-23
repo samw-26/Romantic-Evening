@@ -49,7 +49,7 @@ func animate(anim: AnimatedSprite2D, direction: Vector2):
 func _process(_delta: float) -> void:
 	#When nodes are ready
 	if game_started:
-		if !closing:
+		if !closing and !in_menu:
 			#Clock
 			if clock_timer.is_stopped():
 				clock_timer.start()
@@ -64,11 +64,16 @@ func _process(_delta: float) -> void:
 
 		#Once restaurant is empty and closing, show end game screen
 		if couple_count == 0 and closing and !in_menu:
+			get_tree().paused = true
 			in_menu = true
 			game_started = false
 			closing_node.show()
 			quota_end.text = "Quota: $"+str(quota)
-			tip_end.text = "Tips: $"+str(tip)
+			var current_tip = 0
+			while current_tip <= tip:
+				await get_tree().create_timer(0.01).timeout
+				tip_end.text = "Tips: $"+str(current_tip)
+				current_tip += 1
 			if quota > tip:
 				final_label.text = "You Did Not Meet Quota"
 			else:

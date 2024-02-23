@@ -49,6 +49,7 @@ func _on_play_again_pressed() -> void:
 		Global.quota += 200
 	Global.closing = false
 	Global.in_menu = false
+	get_tree().paused = false
 	get_tree().reload_current_scene()
 
 func _on_quit_pressed() -> void:

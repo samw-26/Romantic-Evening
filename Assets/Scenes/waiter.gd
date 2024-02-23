@@ -26,7 +26,8 @@ func _process(_delta: float) -> void:
 		Global.animate(anim,direction)
 		velocity = direction * speed
 		move_and_slide()
-
+	else:
+		anim.play("idle")
 func pick_up_food(food: String):
 	if food_carrying["Left"].is_empty():
 		food_carrying["Left"] = food

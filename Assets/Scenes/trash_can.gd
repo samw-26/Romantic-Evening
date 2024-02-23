@@ -17,11 +17,11 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 		in_range = false
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("trash"):
+	if event.is_action_pressed("trash") and in_range:
 		var food = waiter.trash_food()
 		if food != "":
 			trash.append(food)
 
-	elif event.is_action_pressed("take"):
+	elif event.is_action_pressed("take") and in_range:
 		if waiter.carrying < waiter.carry_capacity and !trash.is_empty():
 			waiter.pick_up_food(trash.pop_back())
