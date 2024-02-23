@@ -22,17 +22,8 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if !Global.closing:
 		direction = Input.get_vector("left","right","up","down")
-		#Idle
-		if direction == Vector2.ZERO:
-			anim.play("idle_front")
-		elif direction == Vector2.RIGHT:
-			anim.play("walk_right")
-		elif direction == Vector2.LEFT:
-			anim.play("walk_left")
-		elif direction == Vector2.UP:
-			anim.play("walk_back")
-		elif direction == Vector2.DOWN:
-			anim.play("walk_front")
+		#Animations
+		Global.animate(anim,direction)
 		velocity = direction * speed
 		move_and_slide()
 

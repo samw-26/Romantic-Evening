@@ -5,3 +5,5 @@ res://Assets/Scenes/plate.tscn
 res://Assets/Scenes/couple.tscn
 res://Assets/Scenes/holding.tscn
 res://Assets/Scenes/trash_can.tscn
+res://Assets/Scenes/couple.gd
+res://Assets/Scenes/global.gd

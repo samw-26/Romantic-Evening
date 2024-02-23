@@ -6,6 +6,10 @@ var row_diff: int = 80
 var off_screen: int = 960
 var speed: int = 200
 
+#Animations
+var man_anim: AnimatedSprite2D
+var woman_anim: AnimatedSprite2D
+
 #Booleans
 var at_table: bool = false
 var ready_to_order: bool = false
@@ -46,6 +50,9 @@ var give_tip: bool = false
 var moods: Array = ["Hungry", "Unromantic", "Bored", "Grumpy", "Awkward"]
 
 func _ready() -> void:
+	#Animation nodes
+	man_anim = %Man
+	#woman_anim = %Woman
 	#Choose orders and set meal duration
 	man_order = order_options.pick_random()
 	woman_order = order_options.pick_random()
@@ -77,6 +84,7 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	if !Global.closing:
+		Global.animate(man_anim,direction)
 		#Go to table
 		if(!at_table and !unsatisfied):
 			go_to_table()

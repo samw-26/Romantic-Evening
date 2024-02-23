@@ -1,7 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://d4k7yy14qfd5d"]
+[gd_scene load_steps=25 format=3 uid="uid://d4k7yy14qfd5d"]
 
 [ext_resource type="Script" path="res://Assets/Scenes/couple.gd" id="1_n7npp"]
-[ext_resource type="Texture2D" uid="uid://p0du68qm602j" path="res://Assets/Characters/man.png" id="2_4acg5"]
+[ext_resource type="Texture2D" uid="uid://dmanr53nwvcut" path="res://Assets/Characters/man-sheet.png" id="2_j23ip"]
 [ext_resource type="Texture2D" uid="uid://c6o0klwqw2byb" path="res://Assets/Characters/speechbubble.png" id="3_dv7gh"]
 [ext_resource type="Texture2D" uid="uid://bhvc2lkfnv1tl" path="res://Assets/Food/steak.png" id="4_tflw4"]
 [ext_resource type="Texture2D" uid="uid://1jukbyg3apdg" path="res://Assets/Food/Spaghetti.png" id="5_dvv6d"]
@@ -10,6 +10,104 @@
 [ext_resource type="Texture2D" uid="uid://t0o6or3jhbog" path="res://Assets/Characters/woman.png" id="8_ajoud"]
 [ext_resource type="Texture2D" uid="uid://polfwku7m4mo" path="res://Assets/Characters/dress.png" id="9_c8ebl"]
 [ext_resource type="Texture2D" uid="uid://dggg7py7qxiak" path="res://Assets/Characters/eyes.png" id="10_xgc6x"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ml4k4"]
+atlas = ExtResource("2_j23ip")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yjolf"]
+atlas = ExtResource("2_j23ip")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3xjrv"]
+atlas = ExtResource("2_j23ip")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aopfh"]
+atlas = ExtResource("2_j23ip")
+region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k5gv6"]
+atlas = ExtResource("2_j23ip")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yeuls"]
+atlas = ExtResource("2_j23ip")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n0tku"]
+atlas = ExtResource("2_j23ip")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_14ved"]
+atlas = ExtResource("2_j23ip")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w57nj"]
+atlas = ExtResource("2_j23ip")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8v3lc"]
+atlas = ExtResource("2_j23ip")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gwdyw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ml4k4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yjolf")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3xjrv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aopfh")
+}],
+"loop": true,
+"name": &"walk_back",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k5gv6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yeuls")
+}],
+"loop": true,
+"name": &"walk_front",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n0tku")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_14ved")
+}],
+"loop": true,
+"name": &"walk_left",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w57nj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8v3lc")
+}],
+"loop": true,
+"name": &"walk_right",
+"speed": 4.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_el8w6"]
 radius = 17.5071
@@ -27,9 +125,12 @@ motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_n7npp")
 
-[node name="Man" type="Sprite2D" parent="."]
+[node name="Man" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
 scale = Vector2(6, 6)
-texture = ExtResource("2_4acg5")
+sprite_frames = SubResource("SpriteFrames_gwdyw")
+animation = &"walk_right"
+autoplay = "idle"
 
 [node name="ManOrder" type="Sprite2D" parent="Man"]
 unique_name_in_owner = true
@@ -120,7 +221,7 @@ shape = SubResource("RectangleShape2D_q860f")
 
 [node name="StatusTimer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 20.0
+wait_time = 30.0
 one_shot = true
 
 [node name="FlickerTimerMan" type="Timer" parent="StatusTimer"]
@@ -133,7 +234,7 @@ wait_time = 0.3
 
 [node name="ExitTimer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 20.0
+wait_time = 30.0
 one_shot = true
 
 [node name="MealTimer" type="Timer" parent="."]

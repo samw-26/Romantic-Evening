@@ -32,6 +32,19 @@ var quota_end: Label
 var tip_end: Label
 var final_label: Label
 
+#Animation control
+func animate(anim: AnimatedSprite2D, direction: Vector2):
+	if direction == Vector2.ZERO:
+		anim.play("idle")
+	elif direction == Vector2.RIGHT:
+		anim.play("walk_right")
+	elif direction == Vector2.LEFT:
+		anim.play("walk_left")
+	elif direction == Vector2.UP:
+		anim.play("walk_back")
+	elif direction == Vector2.DOWN:
+		anim.play("walk_front")
+
 #Game loop
 func _process(_delta: float) -> void:
 	#When nodes are ready
