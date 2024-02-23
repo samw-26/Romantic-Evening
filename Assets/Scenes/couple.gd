@@ -97,12 +97,12 @@ func eye_frame():
 		eyes.frame = 0
 
 func _physics_process(_delta: float) -> void:
+	#Animations
+	Global.animate(man_anim,direction)
+	Global.animate(woman_anim,direction)
+	Global.animate(dress,direction)
+	eye_frame()
 	if !Global.closing:
-		#Animations
-		Global.animate(man_anim,direction)
-		Global.animate(woman_anim,direction)
-		Global.animate(dress,direction)
-		eye_frame()
 		#Go to table
 		if(!at_table and !unsatisfied):
 			go_to_table()
@@ -110,7 +110,7 @@ func _physics_process(_delta: float) -> void:
 		if(at_table):
 			#Ordering, wait for customers to decide
 			if !ready_to_order:
-				await get_tree().create_timer(2).timeout
+				await get_tree().create_timer(2,false).timeout
 				ready_to_order = true
 			elif ready_to_order and !eating:
 				order()

@@ -98,11 +98,11 @@ func cook(order: String) -> void:
 	#Cook
 	match order: 
 			"Steak":
-				await get_tree().create_timer(food_dict[order]).timeout
+				await get_tree().create_timer(food_dict[order],false).timeout
 			"Spaghetti":
-				await get_tree().create_timer(food_dict[order]).timeout
+				await get_tree().create_timer(food_dict[order],false).timeout
 			"Salad":
-				await get_tree().create_timer(food_dict[order]).timeout
+				await get_tree().create_timer(food_dict[order],false).timeout
 	#Display plate
 	for plate in plates:
 		if plate.available:
