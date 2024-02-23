@@ -1,7 +1,7 @@
 res://Assets/Scenes/waiter.tscn
+res://Assets/Scenes/waiter.gd
 res://Assets/Scenes/restaurant.tscn
 res://Assets/Scenes/plate.tscn
 res://Assets/Scenes/couple.tscn
 res://Assets/Scenes/holding.tscn
 res://Assets/Scenes/trash_can.tscn
-res://Assets/Scenes/waiter.gd

@@ -9,15 +9,30 @@ var first_plate: Sprite2D
 var second_plate: Sprite2D
 #Movement
 var direction: Vector2
+var last_direction: Vector2
 @export var speed: int = 300
+#Animation
+var anim: AnimatedSprite2D
 
 func _ready() -> void:
+	anim = %AnimatedSprite2D
 	%Plate1.hide()
 	%Plate2.hide()
 
 func _process(_delta: float) -> void:
 	if !Global.closing:
 		direction = Input.get_vector("left","right","up","down")
+		#Idle
+		if direction == Vector2.ZERO:
+			anim.play("idle_front")
+		elif direction == Vector2.RIGHT:
+			anim.play("walk_right")
+		elif direction == Vector2.LEFT:
+			anim.play("walk_left")
+		elif direction == Vector2.UP:
+			anim.play("walk_back")
+		elif direction == Vector2.DOWN:
+			anim.play("walk_front")
 		velocity = direction * speed
 		move_and_slide()
 
