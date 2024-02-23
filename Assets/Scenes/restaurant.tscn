@@ -204,6 +204,7 @@ text = "5:00pm"
 
 [node name="Closing" type="Control" parent="UI/CanvasLayer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

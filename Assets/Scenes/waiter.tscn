@@ -1,11 +1,53 @@
-[gd_scene load_steps=8 format=3 uid="uid://dj6q5ws5kbjgj"]
+[gd_scene load_steps=14 format=3 uid="uid://dj6q5ws5kbjgj"]
 
 [ext_resource type="Script" path="res://Assets/Scenes/waiter.gd" id="1_l15ge"]
 [ext_resource type="Texture2D" uid="uid://b3d6p84y81f8l" path="res://Assets/Characters/waiter.png" id="2_lxa45"]
+[ext_resource type="Texture2D" uid="uid://8wssxojbc3fl" path="res://Assets/Characters/waiter-Sheet.png" id="3_8tfof"]
 [ext_resource type="Texture2D" uid="uid://bb1poeibdwrv3" path="res://Assets/Food/Plate.png" id="3_y5fhc"]
 [ext_resource type="Texture2D" uid="uid://b2vee5f37yhkq" path="res://Assets/Food/salad.png" id="4_oav1p"]
 [ext_resource type="Texture2D" uid="uid://1jukbyg3apdg" path="res://Assets/Food/Spaghetti.png" id="5_rlrwq"]
 [ext_resource type="Texture2D" uid="uid://bhvc2lkfnv1tl" path="res://Assets/Food/steak.png" id="6_22p60"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dpuq5"]
+atlas = ExtResource("3_8tfof")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3nsl"]
+atlas = ExtResource("3_8tfof")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dyp2w"]
+atlas = ExtResource("3_8tfof")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_desdg"]
+atlas = ExtResource("3_8tfof")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i03tf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dpuq5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s3nsl")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dyp2w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_desdg")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 4.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_aqjpf"]
 radius = 18.2483
@@ -18,6 +60,12 @@ script = ExtResource("1_l15ge")
 texture_filter = 1
 scale = Vector2(6, 6)
 texture = ExtResource("2_lxa45")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+scale = Vector2(6, 6)
+sprite_frames = SubResource("SpriteFrames_i03tf")
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 20)
