@@ -24,7 +24,7 @@ func _ready() -> void:
 	#Start game
 	Global.game_started = true
 	#Wait before starting spawning
-	await get_tree().create_timer(2).timeout 
+	await get_tree().create_timer(5).timeout 
 	spawn_couple()
 	$SpawnTimer.start()
 
