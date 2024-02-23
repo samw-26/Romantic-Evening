@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cswo4n3ie6y7x"]
+[gd_scene load_steps=31 format=3 uid="uid://cswo4n3ie6y7x"]
 
 [ext_resource type="Script" path="res://Assets/Scenes/restaurant.gd" id="1_gjta4"]
 [ext_resource type="Texture2D" uid="uid://1uwv1qr6ai1q" path="res://Assets/Restaurant/WoodFloor1.png" id="2_6ls2i"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://dj6q5ws5kbjgj" path="res://Assets/Scenes/waiter.tscn" id="2_fgvdu"]
 [ext_resource type="Texture2D" uid="uid://ba4g5o7n8h2ba" path="res://Assets/UI/notepad.png" id="2_s3gyt"]
 [ext_resource type="Texture2D" uid="uid://bnowjroueg6ko" path="res://Assets/Restaurant/WoodFloor3.png" id="3_5l6he"]
+[ext_resource type="FontFile" uid="uid://bt5de0luhmt6c" path="res://Assets/Fonts/Caveat-Regular.ttf" id="3_55brr"]
+[ext_resource type="FontFile" uid="uid://cj4xh5kkdd2us" path="res://Assets/Fonts/Roboto-Bold.ttf" id="3_mqcok"]
 [ext_resource type="Texture2D" uid="uid://bxdvgs8ysbepq" path="res://Assets/Restaurant/white.png" id="3_rkp72"]
 [ext_resource type="Texture2D" uid="uid://csv3fyqlmrihs" path="res://Assets/Restaurant/bar.png" id="4_7xopk"]
 [ext_resource type="PackedScene" uid="uid://f8qnj2x0y1cs" path="res://Assets/Scenes/table.tscn" id="5_1mjg2"]
@@ -13,6 +15,37 @@
 [ext_resource type="Texture2D" uid="uid://csibl51krhjh2" path="res://Assets/Restaurant/carpet.png" id="11_pklt8"]
 [ext_resource type="PackedScene" uid="uid://dn85x2w8551o8" path="res://Assets/Scenes/plate.tscn" id="11_t3kre"]
 [ext_resource type="PackedScene" uid="uid://cu2vrlxipumk5" path="res://Assets/Scenes/trash_can.tscn" id="12_1dcmu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_inwdd"]
+bg_color = Color(0, 0.45098, 0, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="Theme" id="Theme_0msn8"]
+Button/styles/normal = SubResource("StyleBoxFlat_inwdd")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fxfyo"]
+bg_color = Color(0, 0.631373, 0, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xeru8"]
+bg_color = Color(0.615686, 0, 0, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8248e"]
+bg_color = Color(0.768627, 0, 0, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u3v86"]
 texture = ExtResource("2_6ls2i")
@@ -132,13 +165,14 @@ unique_name_in_owner = true
 texture_filter = 2
 layout_mode = 0
 offset_left = -184.2
-offset_top = 105.814
+offset_top = 100.481
 offset_right = -60.2
-offset_bottom = 147.814
+offset_bottom = 151.481
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 30
+theme_override_fonts/font = ExtResource("3_55brr")
+theme_override_font_sizes/font_size = 40
 text = "Tips: $0"
 
 [node name="Quota" type="Label" parent="UI/CanvasLayer/NotepadControl"]
@@ -146,25 +180,174 @@ unique_name_in_owner = true
 texture_filter = 2
 layout_mode = 0
 offset_left = -184.2
-offset_top = 62.2429
+offset_top = 55.5762
 offset_right = -10.2
-offset_bottom = 104.243
+offset_bottom = 106.576
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 30
+theme_override_fonts/font = ExtResource("3_55brr")
+theme_override_font_sizes/font_size = 40
 text = "Quota: $500"
 
 [node name="ClockLabel" type="Label" parent="UI/CanvasLayer"]
 unique_name_in_owner = true
 texture_filter = 2
 offset_left = 28.0
-offset_right = 208.58
-offset_bottom = 69.0
+offset_right = 233.0
+offset_bottom = 71.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("3_mqcok")
+theme_override_font_sizes/font_size = 60
+text = "5:00pm"
+
+[node name="Closing" type="Control" parent="UI/CanvasLayer"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="UI/CanvasLayer/Closing"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0392157, 0.0392157, 0.0392157, 0.788235)
+
+[node name="End of Shift Report" type="RichTextLabel" parent="UI/CanvasLayer/Closing"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.2
+anchor_right = 0.5
+anchor_bottom = 0.8
+offset_left = -404.5
+offset_top = -55.0
+offset_right = 404.5
+offset_bottom = 55.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 20
-theme_override_font_sizes/font_size = 50
-text = "5:00pm"
+theme_override_fonts/normal_font = ExtResource("3_mqcok")
+theme_override_font_sizes/normal_font_size = 82
+bbcode_enabled = true
+text = "[center]Your Shift Has Ended!
+[u]Results[/u][/center]
+
+"
+
+[node name="QuotaResult" type="Label" parent="UI/CanvasLayer/Closing/End of Shift Report"]
+unique_name_in_owner = true
+texture_filter = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.423
+anchor_right = 0.511
+anchor_bottom = 0.423
+offset_left = -99.0
+offset_top = -41.5
+offset_right = 99.0
+offset_bottom = 41.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.705882, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 60
+text = "Quota: $000"
+
+[node name="TipsResult" type="Label" parent="UI/CanvasLayer/Closing/End of Shift Report"]
+unique_name_in_owner = true
+texture_filter = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.56
+anchor_right = 0.511
+anchor_bottom = 0.56
+offset_left = -99.0
+offset_top = -41.5
+offset_right = 99.0
+offset_bottom = 41.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0.392157, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 60
+text = "Tips: $000"
+
+[node name="FinalResult" type="Label" parent="UI/CanvasLayer/Closing/End of Shift Report"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.696
+anchor_right = 0.511
+anchor_bottom = 0.696
+offset_left = -203.051
+offset_top = -18.5
+offset_right = 203.05
+offset_bottom = 64.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("3_mqcok")
+theme_override_font_sizes/font_size = 60
+text = "You Met Quota!"
+
+[node name="PlayAgain" type="Button" parent="UI/CanvasLayer/Closing/End of Shift Report"]
+texture_filter = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3
+anchor_top = 1.0
+anchor_right = 0.3
+anchor_bottom = 1.0
+offset_left = -154.0
+offset_top = -91.0
+offset_right = 154.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_0msn8")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("3_mqcok")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/hover = SubResource("StyleBoxFlat_fxfyo")
+text = "Play Again"
+
+[node name="Quit" type="Button" parent="UI/CanvasLayer/Closing/End of Shift Report"]
+texture_filter = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.7
+anchor_top = 1.0
+anchor_right = 0.7
+anchor_bottom = 1.0
+offset_left = -154.0
+offset_top = -91.0
+offset_right = 154.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("3_mqcok")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_xeru8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8248e")
+text = "Quit"
 
 [node name="TileMap" type="TileMap" parent="."]
 scale = Vector2(4, 4)
@@ -181,6 +364,8 @@ layer_0/tile_data = PackedInt32Array(-1, 0, 0, -65536, 0, 0, -65535, 0, 0, -6553
 
 [node name="Tables" type="Node2D" parent="."]
 y_sort_enabled = true
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="Table2" parent="Tables" instance=ExtResource("5_1mjg2")]
 position = Vector2(241, 386)
@@ -308,8 +493,12 @@ scale = Vector2(-1, 1)
 
 [node name="Couples" type="Node2D" parent="."]
 y_sort_enabled = true
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="Bar" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="Plate1" parent="Bar" instance=ExtResource("11_t3kre")]
 visible = false
@@ -351,7 +540,7 @@ position = Vector2(1056, 26)
 visible = false
 position = Vector2(1120, 26)
 
-[node name="TrashCan" parent="." instance=ExtResource("12_1dcmu")]
+[node name="TrashCan" parent="Bar" instance=ExtResource("12_1dcmu")]
 position = Vector2(478, 31)
 
 [node name="Waiter" parent="." instance=ExtResource("2_fgvdu")]
@@ -364,12 +553,14 @@ position = Vector2(722, 961)
 
 [node name="SpawnTimer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 0.1
+wait_time = 10.0
 
 [node name="Clock" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 10.0
+wait_time = 300.0
 one_shot = true
 
+[connection signal="pressed" from="UI/CanvasLayer/Closing/End of Shift Report/PlayAgain" to="." method="_on_play_again_pressed"]
+[connection signal="pressed" from="UI/CanvasLayer/Closing/End of Shift Report/Quit" to="." method="_on_quit_pressed"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="Clock" to="." method="_on_clock_timeout"]

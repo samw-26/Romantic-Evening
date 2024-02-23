@@ -19,27 +19,48 @@ var waiter: Waiter
 #UI
 var tip: int = 0
 var tip_label: Label
+var quota: int = 200
 var quota_label: Label
 var time_left: float 
 var clock_label: Label
 var clock_timer: Timer
 var closing: bool = false
+var in_menu: bool = false
+#End game screen
+var closing_node: Control
+var quota_end: Label
+var tip_end: Label
+var final_label: Label
 
 #Game loop
 func _process(_delta: float) -> void:
 	#When nodes are ready
-	if game_started and !closing:
-		#Clock
-		if clock_timer.is_stopped():
-			clock_timer.start()
-		var hour: String = str(int((300+300-clock_timer.time_left)/60))
-		var minutes: String = str(int((300+300-clock_timer.time_left))%60)
-		if int(minutes) < 10:
-			minutes = str(0) + minutes
-		clock_label.text = hour+":"+minutes+"pm"
-		#Cooking
-		if !order_queue.is_empty():
-			cook(order_queue.pop_front())
+	if game_started:
+		if !closing:
+			#Clock
+			if clock_timer.is_stopped():
+				clock_timer.start()
+			var hour: String = str(int((300+300-clock_timer.time_left)/60))
+			var minutes: String = str(int((300+300-clock_timer.time_left))%60)
+			if int(minutes) < 10:
+				minutes = str(0) + minutes
+			clock_label.text = hour+":"+minutes+"pm"
+			#Cooking
+			if !order_queue.is_empty():
+				cook(order_queue.pop_front())
+
+		#Once restaurant is empty and closing, show end game screen
+		if couple_count == 0 and closing and !in_menu:
+			in_menu = true
+			game_started = false
+			closing_node.show()
+			quota_end.text = "Quota: $"+str(quota)
+			tip_end.text = "Tips: $"+str(tip)
+			if quota > tip:
+				final_label.text = "You Did Not Meet Quota"
+			else:
+				final_label.text = "You Met Quota!"
+
 
 #@return random table position Vector2
 func request_table() -> Node:

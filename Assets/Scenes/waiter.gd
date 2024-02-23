@@ -16,9 +16,10 @@ func _ready() -> void:
 	%Plate2.hide()
 
 func _process(_delta: float) -> void:
-	direction = Input.get_vector("left","right","up","down")
-	velocity = direction * speed
-	move_and_slide()
+	if !Global.closing:
+		direction = Input.get_vector("left","right","up","down")
+		velocity = direction * speed
+		move_and_slide()
 
 func pick_up_food(food: String):
 	if food_carrying["Left"].is_empty():
