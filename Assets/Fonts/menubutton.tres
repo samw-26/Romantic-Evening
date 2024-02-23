@@ -1,0 +1,33 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://cfnnw8wbr1jch"]
+
+[ext_resource type="FontFile" uid="uid://cj4xh5kkdd2us" path="res://Assets/Fonts/Roboto-Bold.ttf" id="1_3c7qu"]
+[ext_resource type="StyleBox" uid="uid://b0hs1ixn1hyld" path="res://Assets/Fonts/normalbuttonstylebox.tres" id="2_r16bg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u2eac"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q8vv8"]
+bg_color = Color(0.282353, 0.282353, 0.282353, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.72549, 0.72549, 0.72549, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fjl0y"]
+bg_color = Color(0.54902, 0.54902, 0.54902, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.517647, 0.517647, 0.517647, 1)
+border_blend = true
+
+[resource]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/font_sizes/font_size = 30
+Button/fonts/font = ExtResource("1_3c7qu")
+Button/styles/focus = SubResource("StyleBoxEmpty_u2eac")
+Button/styles/hover = SubResource("StyleBoxFlat_q8vv8")
+Button/styles/normal = ExtResource("2_r16bg")
+Button/styles/pressed = SubResource("StyleBoxFlat_fjl0y")

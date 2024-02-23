@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://cswo4n3ie6y7x"]
+[gd_scene load_steps=34 format=3 uid="uid://cswo4n3ie6y7x"]
 
 [ext_resource type="Script" path="res://Assets/Scenes/restaurant.gd" id="1_gjta4"]
 [ext_resource type="Texture2D" uid="uid://1uwv1qr6ai1q" path="res://Assets/Restaurant/WoodFloor1.png" id="2_6ls2i"]
@@ -11,6 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://bxdvgs8ysbepq" path="res://Assets/Restaurant/white.png" id="3_rkp72"]
 [ext_resource type="Texture2D" uid="uid://csv3fyqlmrihs" path="res://Assets/Restaurant/bar.png" id="4_7xopk"]
 [ext_resource type="PackedScene" uid="uid://f8qnj2x0y1cs" path="res://Assets/Scenes/table.tscn" id="5_1mjg2"]
+[ext_resource type="Theme" uid="uid://bv2rqnamjcwrb" path="res://Assets/Fonts/default.tres" id="5_m3e2d"]
+[ext_resource type="Script" path="res://Assets/Scenes/Pause.gd" id="5_vxhmq"]
+[ext_resource type="Theme" uid="uid://cfnnw8wbr1jch" path="res://Assets/Fonts/menubutton.tres" id="6_qf26s"]
 [ext_resource type="PackedScene" uid="uid://voiqnn8bhniv" path="res://Assets/Scenes/chair.tscn" id="8_xtd84"]
 [ext_resource type="Texture2D" uid="uid://csibl51krhjh2" path="res://Assets/Restaurant/carpet.png" id="11_pklt8"]
 [ext_resource type="PackedScene" uid="uid://dn85x2w8551o8" path="res://Assets/Scenes/plate.tscn" id="11_t3kre"]
@@ -350,6 +353,89 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_xeru8")
 theme_override_styles/hover = SubResource("StyleBoxFlat_8248e")
 text = "Quit"
 
+[node name="Pause" type="Control" parent="UI/CanvasLayer"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_vxhmq")
+
+[node name="Border" type="ColorRect" parent="UI/CanvasLayer/Pause"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -138.0
+offset_top = -172.0
+offset_right = 138.0
+offset_bottom = 173.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+
+[node name="Fill" type="ColorRect" parent="UI/CanvasLayer/Pause"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -126.0
+offset_top = -159.0
+offset_right = 126.0
+offset_bottom = 159.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.160784, 0.160784, 0.160784, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/CanvasLayer/Pause/Fill"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="UI/CanvasLayer/Pause/Fill/VBoxContainer"]
+texture_filter = 2
+layout_mode = 2
+theme = ExtResource("5_m3e2d")
+theme_override_font_sizes/font_size = 0
+text = "Paused"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/CanvasLayer/Pause/Fill/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Tutorial" type="Button" parent="UI/CanvasLayer/Pause/Fill/VBoxContainer/VBoxContainer"]
+texture_filter = 2
+layout_mode = 2
+theme = ExtResource("6_qf26s")
+text = "How to Play"
+
+[node name="Settings" type="Button" parent="UI/CanvasLayer/Pause/Fill/VBoxContainer/VBoxContainer"]
+texture_filter = 2
+layout_mode = 2
+theme = ExtResource("6_qf26s")
+text = "Settings
+"
+
+[node name="Quit" type="Button" parent="UI/CanvasLayer/Pause/Fill/VBoxContainer/VBoxContainer"]
+texture_filter = 2
+layout_mode = 2
+theme = ExtResource("6_qf26s")
+text = "Quit"
+
 [node name="TileMap" type="TileMap" parent="."]
 scale = Vector2(4, 4)
 tile_set = SubResource("TileSet_njkhi")
@@ -558,10 +644,11 @@ wait_time = 10.0
 
 [node name="Clock" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 305.0
+wait_time = 5.0
 one_shot = true
 
 [connection signal="pressed" from="UI/CanvasLayer/Closing/End of Shift Report/PlayAgain" to="." method="_on_play_again_pressed"]
 [connection signal="pressed" from="UI/CanvasLayer/Closing/End of Shift Report/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="UI/CanvasLayer/Pause/Fill/VBoxContainer/VBoxContainer/Quit" to="UI/CanvasLayer/Pause" method="_on_quit_pressed"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="Clock" to="." method="_on_clock_timeout"]

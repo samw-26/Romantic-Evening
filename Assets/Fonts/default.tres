@@ -1,0 +1,11 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bv2rqnamjcwrb"]
+
+[ext_resource type="FontFile" uid="uid://cj4xh5kkdd2us" path="res://Assets/Fonts/Roboto-Bold.ttf" id="1_nlrcc"]
+
+[resource]
+default_font = ExtResource("1_nlrcc")
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_outline_color = Color(1, 1, 1, 1)
+Label/constants/outline_size = 0
+Label/font_sizes/font_size = 50
+Label/fonts/font = ExtResource("1_nlrcc")
