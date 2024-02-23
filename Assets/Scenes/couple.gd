@@ -48,8 +48,6 @@ var finished: bool = false
 var tip: int = 0
 var give_tip: bool = false
 
-#Moods
-var moods: Array = ["Hungry", "Unromantic", "Bored", "Grumpy", "Awkward"]
 
 func _ready() -> void:
 	#Animation nodes
@@ -241,8 +239,6 @@ func _on_flicker_timer_man_timeout() -> void:
 			man_question.visible = !man_question.visible
 		elif has_ordered and !order1_received:
 			man_food.visible = !man_food.visible
-	#Next mood
-	
 	else:
 		%FlickerTimerMan.stop()
 
@@ -253,8 +249,6 @@ func _on_flicker_timer_woman_timeout() -> void:
 			woman_question.visible = !woman_question.visible
 		elif has_ordered and !order2_received:
 			woman_food.visible = !woman_food.visible
-	#Next mood
-	
 	else:
 		%FlickerTimerWoman.stop()
 

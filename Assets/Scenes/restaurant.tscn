@@ -644,7 +644,7 @@ wait_time = 10.0
 
 [node name="Clock" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 5.0
+wait_time = 305.0
 one_shot = true
 
 [connection signal="pressed" from="UI/CanvasLayer/Closing/End of Shift Report/PlayAgain" to="." method="_on_play_again_pressed"]
