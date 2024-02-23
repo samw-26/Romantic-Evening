@@ -9,6 +9,8 @@ var speed: int = 200
 #Animations
 var man_anim: AnimatedSprite2D
 var woman_anim: AnimatedSprite2D
+var dress: AnimatedSprite2D
+var eyes: AnimatedSprite2D
 
 #Booleans
 var at_table: bool = false
@@ -52,7 +54,9 @@ var moods: Array = ["Hungry", "Unromantic", "Bored", "Grumpy", "Awkward"]
 func _ready() -> void:
 	#Animation nodes
 	man_anim = %Man
-	#woman_anim = %Woman
+	woman_anim = %Woman
+	dress= %Dress
+	eyes = %Eyes
 	#Choose orders and set meal duration
 	man_order = order_options.pick_random()
 	woman_order = order_options.pick_random()
@@ -73,18 +77,32 @@ func _ready() -> void:
 	#Randomize woman
 	var random_eye_color = [Color.BLUE,Color.DARK_GREEN,Color.SADDLE_BROWN,Color.BLACK].pick_random()
 	var random_dress_color = [Color.BLUE,Color.DARK_VIOLET,Color.RED,Color.WEB_GREEN,Color.CORAL,Color.DARK_ORANGE,Color.DIM_GRAY,Color.WEB_PURPLE, Color.GRAY,Color.CRIMSON,Color.ORANGE,Color.ORANGE_RED].pick_random()
-	%Dress.set_modulate(random_dress_color)
-	%Eyes.set_modulate(random_eye_color)
+	dress.set_modulate(random_dress_color)
+	eyes.set_modulate(random_eye_color)
 	
 	#Get random table
 	table = Global.request_table()
 	table_destination = table.position
 	
-
+func eye_frame():
+	if direction == Vector2.ZERO:
+		eyes.frame = 0
+	elif direction == Vector2.LEFT:
+		eyes.frame = 1
+	elif direction == Vector2.RIGHT:
+		eyes.frame = 2
+	elif direction == Vector2.UP:
+		eyes.frame = 3
+	elif direction == Vector2.DOWN:
+		eyes.frame = 0
 
 func _physics_process(_delta: float) -> void:
 	if !Global.closing:
+		#Animations
 		Global.animate(man_anim,direction)
+		Global.animate(woman_anim,direction)
+		Global.animate(dress,direction)
+		eye_frame()
 		#Go to table
 		if(!at_table and !unsatisfied):
 			go_to_table()
