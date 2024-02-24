@@ -120,10 +120,23 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	#Animations
-	Global.animate(man_anim,direction)
-	Global.animate(woman_anim,direction)
-	Global.animate(dress,direction)
-	eye_frame()
+	if !at_table:
+		Global.animate(man_anim,direction)
+		Global.animate(woman_anim,direction)
+		Global.animate(dress,direction)
+		eye_frame(direction)
+	elif man_anim.is_playing():
+		man_anim.stop()
+		man_anim.set_animation("walk_right")
+		man_anim.frame = 1
+		woman_anim.stop()
+		woman_anim.set_animation("walk_left")
+		woman_anim.frame = 1
+		dress.stop()
+		dress.set_animation("walk_left")
+		dress.frame = 1
+		eye_frame(Vector2.LEFT)
+
 	if !Global.closing:
 		#Go to table
 		if(!at_table and !finished):
@@ -287,16 +300,16 @@ func _on_flicker_timer_woman_timeout() -> void:
 	else:
 		%FlickerTimerWoman.stop()
 
-func eye_frame():
-	if direction == Vector2.ZERO:
+func eye_frame(dir: Vector2):
+	if dir == Vector2.ZERO:
 		eyes.frame = 0
-	elif direction == Vector2.LEFT:
+	elif dir == Vector2.LEFT:
 		eyes.frame = 1
-	elif direction == Vector2.RIGHT:
+	elif dir == Vector2.RIGHT:
 		eyes.frame = 2
-	elif direction == Vector2.UP:
+	elif dir == Vector2.UP:
 		eyes.frame = 3
-	elif direction == Vector2.DOWN:
+	elif dir == Vector2.DOWN:
 		eyes.frame = 0
 
 func _on_meal_timer_timeout() -> void:
