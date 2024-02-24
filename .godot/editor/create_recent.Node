@@ -1,4 +1,6 @@
 Sprite2D
+ProgressBar
+TextureProgressBar
 VBoxContainer
 Control
 ColorRect
@@ -10,5 +12,3 @@ RichTextLabel
 CollisionShape2D
 Area2D
 StaticBody2D
-Node2D
-Timer
