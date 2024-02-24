@@ -6,11 +6,11 @@ var available_chairs: Array[Node]
 #Ordering
 var order_queue: Array 
 var priority_queue: Array
+var extra_food: Array
 #Cook Time
 var food_dict: Dictionary = {"Water": 2,"Wine": 2,"Beer": 2,"Steak": 5, "Spaghetti": 5, "Salad": 5,"Icecream":3,"PumpkinPie":3,"ChocolateCake":3}
 var no_plates: Array = ["Water","Wine","Beer","Salad","Icecream"]
 var plates: Array[Node]
-var plate_available: bool = false
 #Gameplay
 const max_couples: int = 12
 var couple_count: int = 0
@@ -62,17 +62,13 @@ func _process(_delta: float) -> void:
 				minutes = str(0) + minutes
 			clock_label.text = hour+":"+minutes+"pm"
 			#Cooking
-			for plate in plates:
-				if plate.available:
-					plate_available = true
-					break
-				else:
-					plate_available = false
-			
 			if !priority_queue.is_empty():
 				food_waiting(priority_queue.pop_back())
 			elif !order_queue.is_empty():
-				cook(order_queue.pop_front())
+				if extra_food.has(order_queue.back()):
+					extra_food.pop_at(extra_food.find(order_queue.pop_back()))
+				else:
+					cook(order_queue.pop_back())
 
 		#Once restaurant is empty and closing, show end game screen
 		if couple_count == 0 and closing and !in_menu:
@@ -83,7 +79,7 @@ func _process(_delta: float) -> void:
 			quota_end.text = "Quota: $"+str(quota)
 			var current_tip = 0
 			while current_tip <= tip:
-				await get_tree().create_timer(0.01).timeout
+				await get_tree().create_timer(0.01 * tip).timeout
 				tip_end.text = "Tips: $"+str(current_tip)
 				current_tip += 1
 			if quota > tip:
@@ -102,8 +98,8 @@ func request_table() -> Node:
 
 #Add customer orders
 func take_order(order1: String, order2: String):
-	order_queue.append(order1)
-	order_queue.append(order2)
+	order_queue.push_front(order1)
+	order_queue.push_front(order2)
 
 #Cook food and display plates
 func cook(order: String) -> void:

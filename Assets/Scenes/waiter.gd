@@ -27,10 +27,11 @@ func _process(_delta: float) -> void:
 		if anim.animation == "walk_back":
 			%Left.hide()
 			%Right.hide()
-		elif !food_carrying["Left"].is_empty():
-			%Left.show()
-		elif !food_carrying["Right"].is_empty():
-			%Right.show()
+		elif carrying > 0:
+			if !food_carrying["Left"].is_empty():
+				%Left.show()
+			if !food_carrying["Right"].is_empty():
+				%Right.show()
 		velocity = direction * speed
 		move_and_slide()
 	else:

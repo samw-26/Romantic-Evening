@@ -307,6 +307,10 @@ func _on_meal_timer_timeout() -> void:
 func _on_love_timer_timeout() -> void:
 	if love_bar.value < 1 and !eating:
 		finished = true
+		if !order1_received:
+			Global.extra_food.append(man_orders[course_counter])
+		if !order2_received:
+			Global.extra_food.append(woman_orders[course_counter])
 		%LoveTimer.stop()
 	if !eating:
 		love_bar.value -= 1
