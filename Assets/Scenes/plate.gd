@@ -3,11 +3,11 @@ extends Area2D
 var order: String
 var available: bool = true
 var in_range: bool = false
-var steak_time: int = 6
-var spaghetti_time: int = 4
-var salad_time: int = 2
+var plate_sprite: Sprite2D
+
 
 func _ready() -> void:
+	plate_sprite = %PlateSprite
 	hide()
 	
 func _process(_delta: float) -> void:
@@ -21,6 +21,10 @@ func _process(_delta: float) -> void:
 func food_ready(food: String) -> void:
 	order = food
 	available = false
+	if Global.no_plates.has(order):
+		plate_sprite.hide()
+	else:
+		plate_sprite.show()
 	get_node("%Food/"+order).show()
 	show()
 

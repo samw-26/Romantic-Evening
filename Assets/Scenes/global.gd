@@ -6,8 +6,10 @@ var available_chairs: Array[Node]
 #Ordering
 var order_queue: Array 
 #Cook Time
-var food_dict: Dictionary = {"Steak": 6, "Spaghetti": 4, "Salad": 2}
+var food_dict: Dictionary = {"Water": 2,"Wine": 2,"Beer": 2,"Steak": 5, "Spaghetti": 5, "Salad": 5,"Icecream":3,"PumpkinPie":3,"ChocolateCake":3}
+var no_plates: Array = ["Water","Wine","Beer","Salad","Icecream"]
 var plates: Array[Node]
+var plate_available: bool = false
 #Gameplay
 const max_couples: int = 12
 var couple_count: int = 0
@@ -59,7 +61,14 @@ func _process(_delta: float) -> void:
 				minutes = str(0) + minutes
 			clock_label.text = hour+":"+minutes+"pm"
 			#Cooking
-			if !order_queue.is_empty():
+			for plate in plates:
+				if plate.available:
+					plate_available = true
+					break
+				else:
+					plate_available = false
+
+			if !order_queue.is_empty() and plate_available:
 				cook(order_queue.pop_front())
 
 		#Once restaurant is empty and closing, show end game screen
@@ -95,17 +104,12 @@ func take_order(order1: String, order2: String):
 
 #Cook food and display plates
 func cook(order: String) -> void:
-	#Cook
-	match order: 
-			"Steak":
-				await get_tree().create_timer(food_dict[order],false).timeout
-			"Spaghetti":
-				await get_tree().create_timer(food_dict[order],false).timeout
-			"Salad":
-				await get_tree().create_timer(food_dict[order],false).timeout
+	#Cook time
+	await get_tree().create_timer(food_dict[order],false).timeout
 	#Display plate
 	for plate in plates:
 		if plate.available:
 			plate.food_ready(order)
-			break
+			return
+	order_queue.append(order)
 

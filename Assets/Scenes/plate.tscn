@@ -1,10 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://dn85x2w8551o8"]
+[gd_scene load_steps=13 format=3 uid="uid://dn85x2w8551o8"]
 
 [ext_resource type="Script" path="res://Assets/Scenes/plate.gd" id="1_2ch5s"]
 [ext_resource type="Texture2D" uid="uid://bb1poeibdwrv3" path="res://Assets/Food/Plate.png" id="1_8amux"]
 [ext_resource type="Texture2D" uid="uid://bhvc2lkfnv1tl" path="res://Assets/Food/steak.png" id="3_oun1w"]
+[ext_resource type="Texture2D" uid="uid://cyy7r71dq4ppy" path="res://Assets/Food/water.png" id="3_pxj00"]
+[ext_resource type="Texture2D" uid="uid://dos6llri8yvei" path="res://Assets/Food/wine.png" id="4_5e7cc"]
 [ext_resource type="Texture2D" uid="uid://1jukbyg3apdg" path="res://Assets/Food/Spaghetti.png" id="4_q725t"]
 [ext_resource type="Texture2D" uid="uid://b2vee5f37yhkq" path="res://Assets/Food/salad.png" id="5_mocnb"]
+[ext_resource type="Texture2D" uid="uid://eockmq2nxdn4" path="res://Assets/Food/beer.png" id="5_yr2c4"]
+[ext_resource type="Texture2D" uid="uid://c3kwuv2ge6bht" path="res://Assets/Food/icecream.png" id="9_5evej"]
+[ext_resource type="Texture2D" uid="uid://due1mq4ekpum4" path="res://Assets/Food/pumpkinpie.png" id="10_qj7r2"]
+[ext_resource type="Texture2D" uid="uid://dwh35s7km3weq" path="res://Assets/Food/chocolatecake.png" id="11_omxxd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fyqxo"]
 size = Vector2(28, 48)
@@ -12,12 +18,29 @@ size = Vector2(28, 48)
 [node name="Plate" type="Area2D" groups=["plates"]]
 script = ExtResource("1_2ch5s")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="PlateSprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 scale = Vector2(4, 4)
 texture = ExtResource("1_8amux")
 
 [node name="Food" type="Node2D" parent="."]
 unique_name_in_owner = true
+
+[node name="Water" type="Sprite2D" parent="Food"]
+visible = false
+scale = Vector2(3, 3)
+texture = ExtResource("3_pxj00")
+
+[node name="Wine" type="Sprite2D" parent="Food"]
+visible = false
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("4_5e7cc")
+
+[node name="Beer" type="Sprite2D" parent="Food"]
+visible = false
+position = Vector2(1, -4)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("5_yr2c4")
 
 [node name="Steak" type="Sprite2D" parent="Food"]
 visible = false
@@ -35,6 +58,23 @@ visible = false
 position = Vector2(0, -6)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("5_mocnb")
+
+[node name="Icecream" type="Sprite2D" parent="Food"]
+visible = false
+position = Vector2(-2, -12)
+scale = Vector2(3, 3)
+texture = ExtResource("9_5evej")
+
+[node name="PumpkinPie" type="Sprite2D" parent="Food"]
+visible = false
+position = Vector2(-2, -1)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("10_qj7r2")
+
+[node name="ChocolateCake" type="Sprite2D" parent="Food"]
+visible = false
+scale = Vector2(2, 2)
+texture = ExtResource("11_omxxd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

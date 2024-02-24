@@ -29,15 +29,28 @@ var table_destination: Vector2
 var direction: Vector2 = Vector2.ZERO
 
 #Ordering/Dining
-var order_options: Array = ["Steak","Spaghetti","Salad"]
-var man_order: String
-var woman_order: String
+var drink_options: Array = ["Water", "Wine", "Beer"]
+var main_options: Array = ["Steak","Spaghetti","Salad"]
+var dessert_options: Array = ["Icecream", "PumpkinPie", "ChocolateCake"]
+var man_orders: Array
+var woman_orders: Array
+var course_counter: int = 0
+
+#Bubbles
 var man_bubble: Sprite2D
 var woman_bubble: Sprite2D
 var man_question: Sprite2D
 var woman_question: Sprite2D
-var man_food: Sprite2D
-var woman_food: Sprite2D
+#Man Chosen orders
+var man_drink: Sprite2D
+var man_main: Sprite2D
+var man_dessert: Sprite2D
+var man_food_sprites: Array
+#Woman Chosen orders
+var woman_drink: Sprite2D
+var woman_main: Sprite2D
+var woman_dessert: Sprite2D
+var woman_food_sprites: Array
 
 #Eating
 var meal_timer: Timer
@@ -56,16 +69,25 @@ func _ready() -> void:
 	dress= %Dress
 	eyes = %Eyes
 	#Choose orders and set meal duration
-	man_order = order_options.pick_random()
-	woman_order = order_options.pick_random()
+	man_orders = [drink_options.pick_random(),main_options.pick_random(),dessert_options.pick_random()]
+	woman_orders = [drink_options.pick_random(),main_options.pick_random(),dessert_options.pick_random()]
 	meal_timer = %MealTimer as Timer
 	#Nodes
+	#Man
 	man_bubble = get_node("%ManOrder")
 	man_question = %ManOrder/Question
-	man_food = get_node("%ManOrder/"+man_order)
+	man_drink = get_node("%ManOrder/"+man_orders[0])
+	man_main = get_node("%ManOrder/"+man_orders[1])
+	man_dessert = get_node("%ManOrder/"+man_orders[2])
+	man_food_sprites = [man_drink,man_main,man_dessert]
+	#Woman
 	woman_bubble = get_node("%WomanOrder")
 	woman_question = %WomanOrder/Question
-	woman_food = get_node("%WomanOrder/"+woman_order)
+	woman_drink = get_node("%WomanOrder/"+woman_orders[0])
+	woman_main = get_node("%WomanOrder/"+woman_orders[1])
+	woman_dessert = get_node("%WomanOrder/"+woman_orders[2])
+	woman_food_sprites = [woman_drink,woman_main,woman_dessert]
+	
 	#Setup
 	man_bubble.hide()
 	man_question.show()
@@ -82,17 +104,7 @@ func _ready() -> void:
 	table = Global.request_table()
 	table_destination = table.position
 	
-func eye_frame():
-	if direction == Vector2.ZERO:
-		eyes.frame = 0
-	elif direction == Vector2.LEFT:
-		eyes.frame = 1
-	elif direction == Vector2.RIGHT:
-		eyes.frame = 2
-	elif direction == Vector2.UP:
-		eyes.frame = 3
-	elif direction == Vector2.DOWN:
-		eyes.frame = 0
+
 
 func _physics_process(_delta: float) -> void:
 	#Animations
@@ -152,6 +164,8 @@ func order() -> void:
 		hunger_started = true
 	#Man and woman show question mark bubbles
 	if !has_ordered and !man_bubble.visible and !woman_bubble.visible:
+		man_question.show()
+		woman_question.show()
 		man_bubble.show()
 		woman_bubble.show()
 	
@@ -162,20 +176,20 @@ func order() -> void:
 			has_ordered = true
 			man_question.hide()
 			woman_question.hide()
-			man_food.show()
-			woman_food.show()
-			Global.take_order(man_order,woman_order)
+			man_food_sprites[course_counter].show()
+			woman_food_sprites[course_counter].show()
+			Global.take_order(man_orders[course_counter],woman_orders[course_counter])
 		#Attempt to serve food if has ordered
 		elif has_ordered:
 			if !order1_received:
-				order1_received = Global.waiter.serve_food(man_order)
+				order1_received = Global.waiter.serve_food(man_orders[course_counter])
 				if order1_received:
-					man_food.hide()
+					man_food_sprites[course_counter].hide()
 					man_bubble.hide()
 			if !order2_received:
-				order2_received = Global.waiter.serve_food(woman_order)
+				order2_received = Global.waiter.serve_food(woman_orders[course_counter])
 				if order2_received:
-					woman_food.hide()
+					woman_food_sprites[course_counter].hide()
 					woman_bubble.hide()
 
 	#Stop timers, commence eating
@@ -238,7 +252,7 @@ func _on_flicker_timer_man_timeout() -> void:
 		if !has_ordered:
 			man_question.visible = !man_question.visible
 		elif has_ordered and !order1_received:
-			man_food.visible = !man_food.visible
+			man_food_sprites[course_counter].visible = !man_food_sprites[course_counter].visible
 	else:
 		%FlickerTimerMan.stop()
 
@@ -248,9 +262,22 @@ func _on_flicker_timer_woman_timeout() -> void:
 		if !has_ordered:
 			woman_question.visible = !woman_question.visible
 		elif has_ordered and !order2_received:
-			woman_food.visible = !woman_food.visible
+			woman_food_sprites[course_counter].visible = !woman_food_sprites[course_counter].visible
 	else:
 		%FlickerTimerWoman.stop()
+
+func eye_frame():
+	if direction == Vector2.ZERO:
+		eyes.frame = 0
+	elif direction == Vector2.LEFT:
+		eyes.frame = 1
+	elif direction == Vector2.RIGHT:
+		eyes.frame = 2
+	elif direction == Vector2.UP:
+		eyes.frame = 3
+	elif direction == Vector2.DOWN:
+		eyes.frame = 0
+
 
 #Exit when unsatisfied
 func _on_exit_timer_timeout() -> void:
@@ -258,4 +285,15 @@ func _on_exit_timer_timeout() -> void:
 	$Area2D.monitoring = false
 
 func _on_meal_timer_timeout() -> void:
-	finished = true
+	course_counter += 1
+	if course_counter > 2:
+		finished = true
+	elif course_counter == 1:
+		meal_timer.set_wait_time(30)
+	elif course_counter == 2:
+		meal_timer.set_wait_time(15)
+	if !finished:
+		eating = false
+		has_ordered = false
+		order1_received = false
+		order2_received = false

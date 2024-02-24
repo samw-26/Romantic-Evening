@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://d4k7yy14qfd5d"]
+[gd_scene load_steps=58 format=3 uid="uid://d4k7yy14qfd5d"]
 
 [ext_resource type="Script" path="res://Assets/Scenes/couple.gd" id="1_n7npp"]
 [ext_resource type="Texture2D" uid="uid://dmanr53nwvcut" path="res://Assets/Characters/man-sheet.png" id="2_j23ip"]
@@ -7,9 +7,15 @@
 [ext_resource type="Texture2D" uid="uid://1jukbyg3apdg" path="res://Assets/Food/Spaghetti.png" id="5_dvv6d"]
 [ext_resource type="Texture2D" uid="uid://b2vee5f37yhkq" path="res://Assets/Food/salad.png" id="6_mrt78"]
 [ext_resource type="Texture2D" uid="uid://bxnl2dty6yk7m" path="res://Assets/Characters/questionmark.png" id="7_1tdnp"]
+[ext_resource type="Texture2D" uid="uid://cyy7r71dq4ppy" path="res://Assets/Food/water.png" id="8_mi30v"]
 [ext_resource type="Texture2D" uid="uid://c2h6mchuafjm0" path="res://Assets/Characters/woman-sheet.png" id="8_trujc"]
+[ext_resource type="Texture2D" uid="uid://dos6llri8yvei" path="res://Assets/Food/wine.png" id="9_dmo64"]
 [ext_resource type="Texture2D" uid="uid://bm86us63tlafh" path="res://Assets/Characters/dress-sheet.png" id="9_e40xt"]
+[ext_resource type="Texture2D" uid="uid://eockmq2nxdn4" path="res://Assets/Food/beer.png" id="10_jjqa3"]
 [ext_resource type="Texture2D" uid="uid://dtpryga6p32n3" path="res://Assets/Characters/eye-sheet.png" id="10_jkkxs"]
+[ext_resource type="Texture2D" uid="uid://c3kwuv2ge6bht" path="res://Assets/Food/icecream.png" id="11_c4pvv"]
+[ext_resource type="Texture2D" uid="uid://due1mq4ekpum4" path="res://Assets/Food/pumpkinpie.png" id="12_pva8r"]
+[ext_resource type="Texture2D" uid="uid://dwh35s7km3weq" path="res://Assets/Food/chocolatecake.png" id="13_w0b0o"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ml4k4"]
 atlas = ExtResource("2_j23ip")
@@ -393,6 +399,42 @@ texture = ExtResource("6_mrt78")
 visible = false
 texture = ExtResource("7_1tdnp")
 
+[node name="Water" type="Sprite2D" parent="Man/ManOrder"]
+visible = false
+position = Vector2(0, -0.5)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("8_mi30v")
+
+[node name="Wine" type="Sprite2D" parent="Man/ManOrder"]
+visible = false
+position = Vector2(0, -0.8)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("9_dmo64")
+
+[node name="Beer" type="Sprite2D" parent="Man/ManOrder"]
+visible = false
+position = Vector2(0.277778, -2)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("10_jjqa3")
+
+[node name="Icecream" type="Sprite2D" parent="Man/ManOrder"]
+visible = false
+position = Vector2(0, -2)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("11_c4pvv")
+
+[node name="PumpkinPie" type="Sprite2D" parent="Man/ManOrder"]
+visible = false
+position = Vector2(0, -1)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("12_pva8r")
+
+[node name="ChocolateCake" type="Sprite2D" parent="Man/ManOrder"]
+visible = false
+position = Vector2(0, -1)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("13_w0b0o")
+
 [node name="Woman" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(142, 0)
@@ -442,6 +484,42 @@ texture = ExtResource("6_mrt78")
 visible = false
 texture = ExtResource("7_1tdnp")
 
+[node name="Water" type="Sprite2D" parent="Woman/WomanOrder"]
+visible = false
+position = Vector2(0, -0.5)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("8_mi30v")
+
+[node name="Wine" type="Sprite2D" parent="Woman/WomanOrder"]
+visible = false
+position = Vector2(0, -0.8)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("9_dmo64")
+
+[node name="Beer" type="Sprite2D" parent="Woman/WomanOrder"]
+visible = false
+position = Vector2(0.277779, -2)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("10_jjqa3")
+
+[node name="Icecream" type="Sprite2D" parent="Woman/WomanOrder"]
+visible = false
+position = Vector2(0, -2)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("11_c4pvv")
+
+[node name="PumpkinPie" type="Sprite2D" parent="Woman/WomanOrder"]
+visible = false
+position = Vector2(0, -1)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("12_pva8r")
+
+[node name="ChocolateCake" type="Sprite2D" parent="Woman/WomanOrder"]
+visible = false
+position = Vector2(0, -1)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("13_w0b0o")
+
 [node name="ManCollision" type="CollisionShape2D" parent="."]
 position = Vector2(-1.5, 18.5)
 shape = SubResource("CircleShape2D_el8w6")
@@ -451,6 +529,7 @@ position = Vector2(143, 18.5)
 shape = SubResource("CircleShape2D_bmfwy")
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(71, -3)
@@ -476,7 +555,7 @@ one_shot = true
 
 [node name="MealTimer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 30.0
+wait_time = 15.0
 one_shot = true
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

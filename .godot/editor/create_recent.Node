@@ -1,10 +1,10 @@
+Sprite2D
 VBoxContainer
 Control
 ColorRect
 Label
 Button
 TextureRect
-Sprite2D
 AnimatedSprite2D
 RichTextLabel
 CollisionShape2D

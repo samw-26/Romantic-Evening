@@ -16,8 +16,8 @@ var anim: AnimatedSprite2D
 
 func _ready() -> void:
 	anim = %AnimatedSprite2D
-	%Plate1.hide()
-	%Plate2.hide()
+	%Left.hide()
+	%Right.hide()
 
 func _process(_delta: float) -> void:
 	if !Global.closing:
@@ -32,13 +32,21 @@ func pick_up_food(food: String):
 	if food_carrying["Left"].is_empty():
 		food_carrying["Left"] = food
 		carrying += 1
-		%Plate1.show()
-		get_node("%Plate1/"+food).show()
+		%Left.show()
+		if Global.no_plates.has(food):
+			%Left/Plate.hide()
+		else:
+			%Left/Plate.show()
+		get_node("%Left/"+food).show()
 	else:
 		food_carrying["Right"] = food
 		carrying += 1
-		%Plate2.show()
-		get_node("%Plate2/"+food).show()
+		%Right.show()
+		if Global.no_plates.has(food):
+			%Right/Plate.hide()
+		else:
+			%Right/Plate.show()
+		get_node("%Right/"+food).show()
 
 func trash_food() -> String:
 	var food = ""
@@ -46,14 +54,14 @@ func trash_food() -> String:
 		food = food_carrying["Right"]
 		food_carrying["Right"] = ""
 		carrying -= 1
-		get_node("%Plate2/"+food).hide()
-		%Plate2.hide()
+		get_node("%Right/"+food).hide()
+		%Right.hide()
 	elif food_carrying["Left"] != "":
 		food = food_carrying["Left"]
 		food_carrying["Left"] = ""
 		carrying -= 1
-		get_node("%Plate1/"+food).hide()
-		%Plate1.hide()
+		get_node("%Left/"+food).hide()
+		%Left.hide()
 	return food
 
 func serve_food(order: String) -> bool:
@@ -62,14 +70,14 @@ func serve_food(order: String) -> bool:
 			var food = food_carrying["Left"]
 			food_carrying["Left"] = ""
 			carrying -= 1
-			get_node("%Plate1/"+food).hide()
-			%Plate1.hide()
+			get_node("%Left/"+food).hide()
+			%Left.hide()
 			return true
 		elif food_carrying["Right"] == order:
 			var food = food_carrying["Right"]
 			food_carrying["Right"] = ""
 			carrying -= 1
-			get_node("%Plate2/"+food).hide()
-			%Plate2.hide()
+			get_node("%Right/"+food).hide()
+			%Right.hide()
 			return true
 	return false
