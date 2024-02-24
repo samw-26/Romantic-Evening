@@ -196,7 +196,6 @@ scale = Vector2(0.5, 0.5)
 
 [node name="Plate" type="Sprite2D" parent="Food/Left"]
 visible = false
-scale = Vector2(1, 1)
 texture = ExtResource("3_y5fhc")
 
 [node name="Water" type="Sprite2D" parent="Food/Left"]

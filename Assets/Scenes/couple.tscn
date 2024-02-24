@@ -354,7 +354,7 @@ radius = 17.5071
 radius = 17.1828
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q860f"]
-size = Vector2(160, 124)
+size = Vector2(160, 112)
 
 [node name="Couple" type="CharacterBody2D" groups=["couples"]]
 collision_layer = 2
@@ -529,10 +529,9 @@ position = Vector2(143, 18.5)
 shape = SubResource("CircleShape2D_bmfwy")
 
 [node name="Area2D" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(71, -3)
+position = Vector2(71, -9)
 shape = SubResource("RectangleShape2D_q860f")
 
 [node name="StatusTimer" type="Timer" parent="."]

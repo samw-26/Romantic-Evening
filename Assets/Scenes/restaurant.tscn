@@ -640,7 +640,7 @@ position = Vector2(722, 961)
 
 [node name="SpawnTimer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 0.1
+wait_time = 15.0
 
 [node name="Clock" type="Timer" parent="."]
 unique_name_in_owner = true

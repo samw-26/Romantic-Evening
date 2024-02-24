@@ -5,6 +5,7 @@ var chairs: Array[Node]
 var available_chairs: Array[Node]
 #Ordering
 var order_queue: Array 
+var priority_queue: Array
 #Cook Time
 var food_dict: Dictionary = {"Water": 2,"Wine": 2,"Beer": 2,"Steak": 5, "Spaghetti": 5, "Salad": 5,"Icecream":3,"PumpkinPie":3,"ChocolateCake":3}
 var no_plates: Array = ["Water","Wine","Beer","Salad","Icecream"]
@@ -67,8 +68,10 @@ func _process(_delta: float) -> void:
 					break
 				else:
 					plate_available = false
-
-			if !order_queue.is_empty() and plate_available:
+			
+			if !priority_queue.is_empty():
+				food_waiting(priority_queue.pop_back())
+			elif !order_queue.is_empty():
 				cook(order_queue.pop_front())
 
 		#Once restaurant is empty and closing, show end game screen
@@ -111,5 +114,14 @@ func cook(order: String) -> void:
 		if plate.available:
 			plate.food_ready(order)
 			return
-	order_queue.append(order)
+	priority_queue.push_front(order)
+	
+func food_waiting(order: String):
+	for plate in plates:
+		if plate.available:
+			plate.available = false
+			await get_tree().create_timer(0.5,false).timeout
+			plate.food_ready(order)
+			return
+	priority_queue.append(order)
 
