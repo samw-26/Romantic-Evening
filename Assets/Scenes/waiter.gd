@@ -24,6 +24,12 @@ func _process(_delta: float) -> void:
 		direction = Input.get_vector("left","right","up","down")
 		#Animations
 		Global.animate(anim,direction)
+		if direction == Vector2.UP and carrying > 0:
+			%Left.hide()
+			%Right.hide()
+		elif carrying > 0:
+			%Left.show()
+			%Right.show()
 		velocity = direction * speed
 		move_and_slide()
 	else:
