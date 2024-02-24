@@ -1,6 +1,6 @@
+Node
 AudioStreamPlayer
 AudioStreamPlayer2D
-Node
 Timer
 Sprite2D
 ProgressBar
@@ -12,4 +12,3 @@ Label
 Button
 TextureRect
 AnimatedSprite2D
-RichTextLabel

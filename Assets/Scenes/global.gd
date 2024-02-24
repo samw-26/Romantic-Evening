@@ -79,7 +79,7 @@ func _process(_delta: float) -> void:
 			quota_end.text = "Quota: $"+str(quota)
 			var current_tip = 0
 			while current_tip <= tip:
-				await get_tree().create_timer(0.01 * tip).timeout
+				await get_tree().create_timer(2/tip).timeout
 				tip_end.text = "Tips: $"+str(current_tip)
 				current_tip += 1
 			if quota > tip:
@@ -108,6 +108,8 @@ func cook(order: String) -> void:
 	#Display plate
 	for plate in plates:
 		if plate.available:
+			plate.available = false
+			await get_tree().create_timer(0.5,false).timeout
 			plate.food_ready(order)
 			return
 	priority_queue.push_front(order)

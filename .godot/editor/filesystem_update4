@@ -5,3 +5,5 @@ res://Assets/Fonts/menubutton.tres
 res://Assets/Scenes/waiter.tscn
 res://Assets/Scenes/couple.tscn
 res://Assets/Scenes/plate.tscn
+res://Assets/Scenes/global.gd
+res://Assets/Scenes/couple.gd
