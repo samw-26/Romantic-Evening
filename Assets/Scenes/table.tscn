@@ -1,12 +1,101 @@
-[gd_scene load_steps=3 format=3 uid="uid://f8qnj2x0y1cs"]
+[gd_scene load_steps=8 format=3 uid="uid://f8qnj2x0y1cs"]
 
 [ext_resource type="Texture2D" uid="uid://bb2v8aci808ry" path="res://Assets/Restaurant/table.png" id="1_23l6n"]
+[ext_resource type="Script" path="res://Assets/Scenes/table.gd" id="1_wgxtd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oul7g"]
 size = Vector2(34, 8.25)
 
+[sub_resource type="Animation" id="Animation_3fa2r"]
+resource_name = "TipAnimation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DollarSign:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DollarSign:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DollarSign:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-39, -84), Vector2(-39, -129)]
+}
+
+[sub_resource type="Animation" id="Animation_rm6nw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DollarSign:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DollarSign:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DollarSign:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-19, -104)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8gh8m"]
+_data = {
+"RESET": SubResource("Animation_rm6nw"),
+"TipAnimation": SubResource("Animation_3fa2r")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f5cw0"]
+size = Vector2(206, 97)
+
 [node name="Table" type="StaticBody2D"]
 collision_mask = 3
+script = ExtResource("1_wgxtd")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(6, 6)
@@ -16,3 +105,35 @@ texture = ExtResource("1_23l6n")
 visible = false
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_oul7g")
+
+[node name="DollarSign" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+texture_filter = 2
+offset_left = -19.0
+offset_top = -104.0
+offset_right = 59.0
+offset_bottom = -49.0
+theme_override_colors/font_color = Color(0.521569, 0.733333, 0.396078, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 40
+text = "$50"
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_8gh8m")
+}
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
+position = Vector2(0, 38.5)
+shape = SubResource("RectangleShape2D_f5cw0")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

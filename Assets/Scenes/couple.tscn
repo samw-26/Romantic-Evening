@@ -410,6 +410,7 @@ autoplay = "idle"
 
 [node name="ManOrder" type="Sprite2D" parent="Man"]
 unique_name_in_owner = true
+visible = false
 position = Vector2(8.9407e-08, -13.1667)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("3_dv7gh")
@@ -494,6 +495,7 @@ animation = &"eyes"
 
 [node name="WomanOrder" type="Sprite2D" parent="Woman"]
 unique_name_in_owner = true
+visible = false
 position = Vector2(0, -13.167)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("3_dv7gh")
@@ -557,12 +559,10 @@ scale = Vector2(0.7, 0.7)
 texture = ExtResource("13_w0b0o")
 
 [node name="ManCollision" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(-1.5, 18.5)
 shape = SubResource("CircleShape2D_el8w6")
 
 [node name="WomanCollision" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(143, 18.5)
 shape = SubResource("CircleShape2D_bmfwy")
 

@@ -6,4 +6,8 @@ res://Assets/Scenes/waiter.tscn
 res://Assets/Scenes/couple.tscn
 res://Assets/Scenes/plate.tscn
 res://Assets/Scenes/global.gd
+res://Assets/Scenes/restaurant.gd
+res://Assets/Scenes/trash_can.gd
+res://Assets/Scenes/table.tscn
+res://Assets/Scenes/table.gd
 res://Assets/Scenes/couple.gd

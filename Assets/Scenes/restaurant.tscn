@@ -330,7 +330,7 @@ theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("3_mqcok")
 theme_override_font_sizes/font_size = 60
 theme_override_styles/hover = SubResource("StyleBoxFlat_fxfyo")
-text = "Play Again"
+text = "Next Shift"
 
 [node name="Quit" type="Button" parent="UI/CanvasLayer/Closing/End of Shift Report"]
 texture_filter = 2

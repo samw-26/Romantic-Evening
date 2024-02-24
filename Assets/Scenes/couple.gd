@@ -144,6 +144,7 @@ func _physics_process(_delta: float) -> void:
 			exit_restaurant()
 
 	if Global.closing:
+		finished = true
 		exit_restaurant()
 
 	#Movement
@@ -216,8 +217,10 @@ func exit_restaurant() -> void:
 		#Bonus tip
 		if love_bar.value == love_bar.max_value:
 			Global.tip += int(100)
+			tip = 100
 		else:
 			Global.tip += int(love_bar.value)
+			tip = int(love_bar.value)
 		Global.tip_label.text = "Tips: $" + str(Global.tip)
 		give_tip = true
 	if(!freed_table):
