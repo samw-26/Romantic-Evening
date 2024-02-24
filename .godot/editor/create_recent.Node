@@ -1,3 +1,4 @@
+Timer
 Sprite2D
 ProgressBar
 TextureProgressBar
@@ -11,4 +12,3 @@ AnimatedSprite2D
 RichTextLabel
 CollisionShape2D
 Area2D
-StaticBody2D

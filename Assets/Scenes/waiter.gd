@@ -24,11 +24,12 @@ func _process(_delta: float) -> void:
 		direction = Input.get_vector("left","right","up","down")
 		#Animations
 		Global.animate(anim,direction)
-		if direction == Vector2.UP and carrying > 0:
+		if anim.animation == "walk_back":
 			%Left.hide()
 			%Right.hide()
-		elif carrying > 0:
+		elif !food_carrying["Left"].is_empty():
 			%Left.show()
+		elif !food_carrying["Right"].is_empty():
 			%Right.show()
 		velocity = direction * speed
 		move_and_slide()

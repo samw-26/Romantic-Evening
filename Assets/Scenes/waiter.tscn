@@ -179,7 +179,7 @@ script = ExtResource("1_l15ge")
 unique_name_in_owner = true
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_i03tf")
-animation = &"idle"
+animation = &"walk_back"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -19,7 +19,6 @@ var has_ordered: bool = false
 var order1_received: bool = false
 var order2_received: bool = false
 var hunger_started: bool = false
-var unsatisfied: bool = false
 var freed_table: bool = false
 var in_range: bool = false
 
@@ -61,6 +60,9 @@ var finished: bool = false
 var tip: int = 0
 var give_tip: bool = false
 
+#Love bar
+var love_bar: ProgressBar
+
 
 func _ready() -> void:
 	#Animation nodes
@@ -100,9 +102,15 @@ func _ready() -> void:
 	dress.set_modulate(random_dress_color)
 	eyes.set_modulate(random_eye_color)
 	
+	#Love bar
+	love_bar = %LoveBar as ProgressBar
+	love_bar.hide()
+	love_bar.value = 0
+	
 	#Get random table
 	table = Global.request_table()
 	table_destination = table.position
+	
 	
 
 
@@ -114,7 +122,7 @@ func _physics_process(_delta: float) -> void:
 	eye_frame()
 	if !Global.closing:
 		#Go to table
-		if(!at_table and !unsatisfied):
+		if(!at_table and !finished):
 			go_to_table()
 		#Dining
 		if(at_table):
@@ -123,20 +131,21 @@ func _physics_process(_delta: float) -> void:
 				await get_tree().create_timer(2,false).timeout
 				ready_to_order = true
 			elif ready_to_order and !eating:
+				if !love_bar.visible:
+					love_bar.show()
 				order()
 			#Eating 
 			elif eating:
 				if meal_timer.is_stopped():
 					meal_timer.start()
+					%LoveTimer.start()
 		#Finished
 		if finished:
 			exit_restaurant()
 
-		#Unsatisfied customer(Exiting)
-		if unsatisfied:
-			exit_restaurant()
 	if Global.closing:
 		exit_restaurant()
+
 	#Movement
 	velocity = direction * speed
 	move_and_slide()
@@ -195,15 +204,16 @@ func order() -> void:
 	#Stop timers, commence eating
 	if order1_received and order2_received:
 		eating = true
-		tip += 10
 		%StatusTimer.stop()
-		%ExitTimer.stop()
 
 #Exit Restaurant
 func exit_restaurant() -> void:
+	$Area2D.monitoring = false
 	at_table = false
+	if love_bar.visible:
+		love_bar.visible = false
 	if !give_tip:
-		Global.tip += tip
+		Global.tip += int(love_bar.value)
 		Global.tip_label.text = "Tips: $" + str(Global.tip)
 		give_tip = true
 	if(!freed_table):
@@ -237,7 +247,7 @@ func _on_status_timer_timeout() -> void:
 	#Hunger status
 	if !eating:
 		if !order1_received or !order2_received:
-			%ExitTimer.start()
+			%WarningTimer.start()
 		if !order1_received and !order2_received:
 			%FlickerTimerMan.start()
 			%FlickerTimerWoman.start()
@@ -278,12 +288,6 @@ func eye_frame():
 	elif direction == Vector2.DOWN:
 		eyes.frame = 0
 
-
-#Exit when unsatisfied
-func _on_exit_timer_timeout() -> void:
-	unsatisfied = true
-	$Area2D.monitoring = false
-
 func _on_meal_timer_timeout() -> void:
 	course_counter += 1
 	if course_counter > 2:
@@ -294,6 +298,20 @@ func _on_meal_timer_timeout() -> void:
 		meal_timer.set_wait_time(15)
 	if !finished:
 		eating = false
+		hunger_started = false
 		has_ordered = false
 		order1_received = false
 		order2_received = false
+		%LoveTimer.stop()
+
+func _on_love_timer_timeout() -> void:
+	if love_bar.value < 1 and !eating:
+		finished = true
+		%LoveTimer.stop()
+	if !eating:
+		love_bar.value -= 1
+	else:
+		love_bar.value += 1
+
+func _on_warning_timer_timeout() -> void:
+	%LoveTimer.start()

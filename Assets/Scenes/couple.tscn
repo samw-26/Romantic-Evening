@@ -385,12 +385,15 @@ wall_min_slide_angle = 0.0
 script = ExtResource("1_n7npp")
 
 [node name="LoveBar" type="ProgressBar" parent="."]
-offset_left = -14.0
-offset_top = -95.0
-offset_right = 136.0
-offset_bottom = -81.0
+unique_name_in_owner = true
+offset_left = 27.0
+offset_top = -57.0
+offset_right = 177.0
+offset_bottom = -43.0
+scale = Vector2(0.5, 0.5)
 theme_override_styles/background = SubResource("StyleBoxFlat_j5us8")
 theme_override_styles/fill = SubResource("StyleBoxFlat_8t6s0")
+max_value = 60.0
 show_percentage = false
 
 [node name="Heart" type="Sprite2D" parent="LoveBar"]
@@ -407,7 +410,6 @@ autoplay = "idle"
 
 [node name="ManOrder" type="Sprite2D" parent="Man"]
 unique_name_in_owner = true
-visible = false
 position = Vector2(8.9407e-08, -13.1667)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("3_dv7gh")
@@ -492,7 +494,6 @@ animation = &"eyes"
 
 [node name="WomanOrder" type="Sprite2D" parent="Woman"]
 unique_name_in_owner = true
-visible = false
 position = Vector2(0, -13.167)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("3_dv7gh")
@@ -556,14 +557,17 @@ scale = Vector2(0.7, 0.7)
 texture = ExtResource("13_w0b0o")
 
 [node name="ManCollision" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-1.5, 18.5)
 shape = SubResource("CircleShape2D_el8w6")
 
 [node name="WomanCollision" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(143, 18.5)
 shape = SubResource("CircleShape2D_bmfwy")
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(71, -9)
@@ -571,7 +575,7 @@ shape = SubResource("RectangleShape2D_q860f")
 
 [node name="StatusTimer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 30.0
+wait_time = 15.0
 one_shot = true
 
 [node name="FlickerTimerMan" type="Timer" parent="StatusTimer"]
@@ -582,9 +586,9 @@ wait_time = 0.3
 unique_name_in_owner = true
 wait_time = 0.3
 
-[node name="ExitTimer" type="Timer" parent="."]
+[node name="WarningTimer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 30.0
+wait_time = 10.0
 one_shot = true
 
 [node name="MealTimer" type="Timer" parent="."]
@@ -592,10 +596,14 @@ unique_name_in_owner = true
 wait_time = 15.0
 one_shot = true
 
+[node name="LoveTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
 [connection signal="timeout" from="StatusTimer" to="." method="_on_status_timer_timeout"]
 [connection signal="timeout" from="StatusTimer/FlickerTimerMan" to="." method="_on_flicker_timer_man_timeout"]
 [connection signal="timeout" from="StatusTimer/FlickerTimerWoman" to="." method="_on_flicker_timer_woman_timeout"]
-[connection signal="timeout" from="ExitTimer" to="." method="_on_exit_timer_timeout"]
+[connection signal="timeout" from="WarningTimer" to="." method="_on_warning_timer_timeout"]
 [connection signal="timeout" from="MealTimer" to="." method="_on_meal_timer_timeout"]
+[connection signal="timeout" from="LoveTimer" to="." method="_on_love_timer_timeout"]
