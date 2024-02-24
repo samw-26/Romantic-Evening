@@ -213,7 +213,11 @@ func exit_restaurant() -> void:
 	if love_bar.visible:
 		love_bar.visible = false
 	if !give_tip:
-		Global.tip += int(love_bar.value)
+		#Bonus tip
+		if love_bar.value == love_bar.max_value:
+			Global.tip += int(100)
+		else:
+			Global.tip += int(love_bar.value)
 		Global.tip_label.text = "Tips: $" + str(Global.tip)
 		give_tip = true
 	if(!freed_table):

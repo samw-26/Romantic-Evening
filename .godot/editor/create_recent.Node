@@ -1,3 +1,5 @@
+AudioStreamPlayer
+AudioStreamPlayer2D
 Node
 Timer
 Sprite2D
@@ -11,5 +13,3 @@ Button
 TextureRect
 AnimatedSprite2D
 RichTextLabel
-CollisionShape2D
-Area2D
