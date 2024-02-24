@@ -2,19 +2,16 @@ extends StaticBody2D
 
 var couple: Couple
 var original_couple: Couple
-var animation_played: bool = false
 
 func _ready() -> void:
 	%DollarSign.hide()
 
 func _process(_delta: float) -> void:
-	if original_couple != null and !animation_played:
-		if original_couple.give_tip and original_couple.tip > 0:
+	if original_couple != null:
+		if original_couple.give_tip and original_couple.tip > 0 and !original_couple.has_triggered_animation:
 			%DollarSign.text = "$" + str(original_couple.tip)
 			%AnimationPlayer.play("TipAnimation")
-			animation_played = true
-	elif original_couple == null:
-		animation_played = false
+			original_couple.has_triggered_animation = true
 	
 
 func _on_area_2d_body_entered(body: Node2D) -> void:

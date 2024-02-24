@@ -59,9 +59,12 @@ var finished: bool = false
 #Tip
 var tip: int = 0
 var give_tip: bool = false
+var has_triggered_animation = false
 
 #Love bar
 var love_bar: ProgressBar
+var love_lost: int = 0 
+var max_expected_love: int = 0
 
 
 func _ready() -> void:
@@ -106,6 +109,7 @@ func _ready() -> void:
 	love_bar = %LoveBar as ProgressBar
 	love_bar.hide()
 	love_bar.value = 0
+	max_expected_love = int(meal_timer.get_wait_time())
 	
 	#Get random table
 	table = Global.request_table()
@@ -215,12 +219,12 @@ func exit_restaurant() -> void:
 		love_bar.visible = false
 	if !give_tip:
 		#Bonus tip
-		if love_bar.value == love_bar.max_value:
-			Global.tip += int(100)
-			tip = 100
-		else:
-			Global.tip += int(love_bar.value)
-			tip = int(love_bar.value)
+		#if love_bar.value == love_bar.max_value:
+			#Global.tip += int(100)
+			#tip = 100
+		#else:
+		Global.tip += int(love_bar.value)
+		tip = int(love_bar.value)
 		Global.tip_label.text = "Tips: $" + str(Global.tip)
 		give_tip = true
 	if(!freed_table):
@@ -297,13 +301,16 @@ func eye_frame():
 
 func _on_meal_timer_timeout() -> void:
 	course_counter += 1
+	love_bar.value += max_expected_love - love_bar.value - love_lost
 	if course_counter > 2:
 		finished = true
+		%LoveTimer.stop()
 	elif course_counter == 1:
 		meal_timer.set_wait_time(30)
 	elif course_counter == 2:
 		meal_timer.set_wait_time(15)
 	if !finished:
+		max_expected_love += int(meal_timer.get_wait_time())
 		eating = false
 		hunger_started = false
 		has_ordered = false
@@ -322,6 +329,7 @@ func _on_love_timer_timeout() -> void:
 		%LoveTimer.stop()
 	if !eating:
 		love_bar.value -= 1
+		love_lost += 1
 	else:
 		love_bar.value += 1
 
