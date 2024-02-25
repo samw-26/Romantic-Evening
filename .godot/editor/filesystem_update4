@@ -7,3 +7,7 @@ res://Assets/Scenes/waiter.tscn
 res://Assets/Scenes/couple.tscn
 res://Assets/Scenes/table.tscn
 res://Assets/Scenes/title_screen.tscn
+res://Assets/Scenes/title_screen.gd
+res://Assets/Scenes/global.gd
+res://Assets/Scenes/restaurant.gd
+res://Assets/Scenes/VolumeChanger.gd

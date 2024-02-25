@@ -3,6 +3,8 @@ extends Node2D
 var couple_scene: PackedScene = preload("res://Assets/Scenes/couple.tscn")
 
 func _ready() -> void:
+	#Volume
+	
 	#Setup
 	%Closing.hide()
 	%Quota.text = "Quota: $"+str(Global.quota)

@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://mije76kp1ljb"]
+[gd_scene load_steps=10 format=3 uid="uid://mije76kp1ljb"]
 
 [ext_resource type="Script" path="res://Assets/Scenes/title_screen.gd" id="1_4f6n6"]
 [ext_resource type="FontFile" uid="uid://cbxlxb8k77sh3" path="res://Assets/Fonts/DancingScript-Bold.ttf" id="1_6vahd"]
 [ext_resource type="Texture2D" uid="uid://27tet1huonr8" path="res://Assets/UI/heart.png" id="2_fcpfs"]
 [ext_resource type="Theme" uid="uid://c8ejyqahojvk0" path="res://Assets/Fonts/buttontheme.tres" id="4_bwiuo"]
 [ext_resource type="AudioStream" uid="uid://rxiusmmj223u" path="res://Assets/Sounds/fancyrestaurant.wav" id="5_hnupx"]
+[ext_resource type="Script" path="res://Assets/Scenes/VolumeChanger.gd" id="6_7duxj"]
 [ext_resource type="FontFile" uid="uid://cj4xh5kkdd2us" path="res://Assets/Fonts/Roboto-Bold.ttf" id="6_wvogi"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sye7k"]
@@ -144,7 +145,8 @@ theme_override_fonts/font = ExtResource("1_6vahd")
 theme_override_font_sizes/font_size = 70
 text = "Volume:"
 
-[node name="LineEdit" type="LineEdit" parent="OptionsContainer/Label"]
+[node name="VolumeChanger" type="LineEdit" parent="OptionsContainer/Label"]
+unique_name_in_owner = true
 texture_filter = 2
 layout_mode = 1
 anchors_preset = -1
@@ -162,17 +164,21 @@ theme_override_fonts/font = ExtResource("6_wvogi")
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxFlat_sye7k")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_65x63")
-text = "80"
 alignment = 1
 max_length = 3
 context_menu_enabled = false
-shortcut_keys_enabled = false
 middle_mouse_paste_enabled = false
-deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
 select_all_on_focus = true
 caret_blink = true
+script = ExtResource("6_7duxj")
 metadata/_edit_use_anchors_ = true
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="OptionsContainer/Label/VolumeChanger"]
+unique_name_in_owner = true
+stream = ExtResource("5_hnupx")
+volume_db = -20.0
+autoplay = true
 
 [node name="Back" type="Button" parent="OptionsContainer"]
 texture_filter = 2
@@ -180,12 +186,10 @@ layout_mode = 2
 theme = ExtResource("4_bwiuo")
 text = "Back"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_hnupx")
-volume_db = -3.41
-
 [connection signal="pressed" from="MainContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="MainContainer/Tutorial" to="." method="_on_tutorial_pressed"]
 [connection signal="pressed" from="MainContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="MainContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="text_changed" from="OptionsContainer/Label/VolumeChanger" to="OptionsContainer/Label/VolumeChanger" method="_on_text_changed"]
+[connection signal="text_submitted" from="OptionsContainer/Label/VolumeChanger" to="OptionsContainer/Label/VolumeChanger" method="_on_text_submitted"]
 [connection signal="pressed" from="OptionsContainer/Back" to="." method="_on_back_pressed"]

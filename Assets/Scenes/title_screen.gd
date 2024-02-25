@@ -1,8 +1,8 @@
 extends Control
 
+
 func _ready() -> void:
 	show_main_screen()
-
 
 func _on_start_pressed() -> void:
 	get_tree().change_scene_to_file("res://Assets/Scenes/restaurant.tscn")

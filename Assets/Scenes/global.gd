@@ -36,7 +36,7 @@ var tip_end: Label
 var final_label: Label
 
 #Audio
-var volume: float
+var volume: int
 
 #Animation control
 func animate(anim: AnimatedSprite2D, direction: Vector2):
