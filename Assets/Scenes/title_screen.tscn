@@ -15,7 +15,7 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yegs0"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_65x63"]
 
 [node name="TitleScreen" type="Control"]
 layout_mode = 3
@@ -155,21 +155,23 @@ anchor_bottom = 0.894118
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/selection_color = Color(0.796078, 0.270588, 0.266667, 1)
 theme_override_constants/minimum_character_width = 0
 theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("6_wvogi")
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxFlat_sye7k")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_yegs0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_65x63")
 text = "80"
 alignment = 1
 max_length = 3
 context_menu_enabled = false
 shortcut_keys_enabled = false
 middle_mouse_paste_enabled = false
-selecting_enabled = false
 deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
 select_all_on_focus = true
+caret_blink = true
 metadata/_edit_use_anchors_ = true
 
 [node name="Back" type="Button" parent="OptionsContainer"]
