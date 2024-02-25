@@ -1,9 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://mije76kp1ljb"]
+[gd_scene load_steps=9 format=3 uid="uid://mije76kp1ljb"]
 
 [ext_resource type="Script" path="res://Assets/Scenes/title_screen.gd" id="1_4f6n6"]
 [ext_resource type="FontFile" uid="uid://cbxlxb8k77sh3" path="res://Assets/Fonts/DancingScript-Bold.ttf" id="1_6vahd"]
 [ext_resource type="Texture2D" uid="uid://27tet1huonr8" path="res://Assets/UI/heart.png" id="2_fcpfs"]
 [ext_resource type="Theme" uid="uid://c8ejyqahojvk0" path="res://Assets/Fonts/buttontheme.tres" id="4_bwiuo"]
+[ext_resource type="AudioStream" uid="uid://rxiusmmj223u" path="res://Assets/Sounds/fancyrestaurant.wav" id="5_hnupx"]
+[ext_resource type="FontFile" uid="uid://cj4xh5kkdd2us" path="res://Assets/Fonts/Roboto-Bold.ttf" id="6_wvogi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sye7k"]
+bg_color = Color(0.498039, 0.141176, 0.141176, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yegs0"]
 
 [node name="TitleScreen" type="Control"]
 layout_mode = 3
@@ -45,19 +57,21 @@ theme_override_font_sizes/font_size = 200
 text = "Romantic Evening"
 metadata/_edit_use_anchors_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Heart1" type="Sprite2D" parent="."]
 position = Vector2(87, 89.0001)
 rotation = -0.570723
 scale = Vector2(10, 10)
 texture = ExtResource("2_fcpfs")
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
+[node name="Heart2" type="Sprite2D" parent="."]
 position = Vector2(1513, 89)
 rotation = 0.570723
 scale = Vector2(10, 10)
 texture = ExtResource("2_fcpfs")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="MainContainer" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -72,7 +86,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 50
 
-[node name="Start" type="Button" parent="VBoxContainer"]
+[node name="Start" type="Button" parent="MainContainer"]
 unique_name_in_owner = true
 texture_filter = 2
 layout_mode = 2
@@ -80,7 +94,7 @@ size_flags_horizontal = 4
 theme = ExtResource("4_bwiuo")
 text = "Start"
 
-[node name="Tutorial" type="Button" parent="VBoxContainer"]
+[node name="Tutorial" type="Button" parent="MainContainer"]
 unique_name_in_owner = true
 texture_filter = 2
 layout_mode = 2
@@ -88,7 +102,7 @@ size_flags_horizontal = 4
 theme = ExtResource("4_bwiuo")
 text = "How to Play"
 
-[node name="Options" type="Button" parent="VBoxContainer"]
+[node name="Options" type="Button" parent="MainContainer"]
 unique_name_in_owner = true
 texture_filter = 2
 layout_mode = 2
@@ -96,7 +110,7 @@ size_flags_horizontal = 4
 theme = ExtResource("4_bwiuo")
 text = "Options"
 
-[node name="Quit" type="Button" parent="VBoxContainer"]
+[node name="Quit" type="Button" parent="MainContainer"]
 unique_name_in_owner = true
 texture_filter = 2
 layout_mode = 2
@@ -104,7 +118,72 @@ size_flags_horizontal = 4
 theme = ExtResource("4_bwiuo")
 text = "Quit"
 
-[connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="VBoxContainer/Tutorial" to="." method="_on_tutorial_pressed"]
-[connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]
-[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[node name="OptionsContainer" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -145.0
+offset_top = -110.0
+offset_right = 145.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+
+[node name="Label" type="Label" parent="OptionsContainer"]
+texture_filter = 2
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("1_6vahd")
+theme_override_font_sizes/font_size = 70
+text = "Volume:"
+
+[node name="LineEdit" type="LineEdit" parent="OptionsContainer/Label"]
+texture_filter = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.737931
+anchor_top = 0.141176
+anchor_right = 1.07931
+anchor_bottom = 0.894118
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/minimum_character_width = 0
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("6_wvogi")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_sye7k")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yegs0")
+text = "80"
+alignment = 1
+max_length = 3
+context_menu_enabled = false
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+select_all_on_focus = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Back" type="Button" parent="OptionsContainer"]
+texture_filter = 2
+layout_mode = 2
+theme = ExtResource("4_bwiuo")
+text = "Back"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_hnupx")
+volume_db = -3.41
+
+[connection signal="pressed" from="MainContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="MainContainer/Tutorial" to="." method="_on_tutorial_pressed"]
+[connection signal="pressed" from="MainContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="MainContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="OptionsContainer/Back" to="." method="_on_back_pressed"]
