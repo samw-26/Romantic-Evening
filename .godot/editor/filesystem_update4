@@ -11,3 +11,5 @@ res://Assets/Scenes/title_screen.gd
 res://Assets/Scenes/global.gd
 res://Assets/Scenes/restaurant.gd
 res://Assets/Scenes/VolumeChanger.gd
+res://Assets/Scenes/volume_changer.tscn
+res://Assets/Scenes/Pause.gd

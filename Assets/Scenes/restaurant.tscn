@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://cswo4n3ie6y7x"]
+[gd_scene load_steps=36 format=3 uid="uid://cswo4n3ie6y7x"]
 
 [ext_resource type="Script" path="res://Assets/Scenes/restaurant.gd" id="1_gjta4"]
 [ext_resource type="Texture2D" uid="uid://1uwv1qr6ai1q" path="res://Assets/Restaurant/WoodFloor1.png" id="2_6ls2i"]
@@ -14,11 +14,11 @@
 [ext_resource type="Theme" uid="uid://bv2rqnamjcwrb" path="res://Assets/Fonts/default.tres" id="5_m3e2d"]
 [ext_resource type="Script" path="res://Assets/Scenes/Pause.gd" id="5_vxhmq"]
 [ext_resource type="Theme" uid="uid://cfnnw8wbr1jch" path="res://Assets/Fonts/menubutton.tres" id="6_qf26s"]
+[ext_resource type="PackedScene" uid="uid://b8jx1mlesv60x" path="res://Assets/Scenes/volume_changer.tscn" id="8_sb77x"]
 [ext_resource type="PackedScene" uid="uid://voiqnn8bhniv" path="res://Assets/Scenes/chair.tscn" id="8_xtd84"]
 [ext_resource type="Texture2D" uid="uid://csibl51krhjh2" path="res://Assets/Restaurant/carpet.png" id="11_pklt8"]
 [ext_resource type="PackedScene" uid="uid://dn85x2w8551o8" path="res://Assets/Scenes/plate.tscn" id="11_t3kre"]
 [ext_resource type="PackedScene" uid="uid://cu2vrlxipumk5" path="res://Assets/Scenes/trash_can.tscn" id="12_1dcmu"]
-[ext_resource type="AudioStream" uid="uid://rxiusmmj223u" path="res://Assets/Sounds/fancyrestaurant.wav" id="19_7khdq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_inwdd"]
 bg_color = Color(0, 0.45098, 0, 1)
@@ -50,6 +50,14 @@ corner_radius_top_left = 25
 corner_radius_top_right = 25
 corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hjrk5"]
+bg_color = Color(0.341176, 0.341176, 0.341176, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u3v86"]
 texture = ExtResource("2_6ls2i")
@@ -357,6 +365,7 @@ text = "Quit"
 [node name="Pause" type="Control" parent="UI/CanvasLayer"]
 process_mode = 3
 visible = false
+texture_filter = 2
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -395,47 +404,90 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.160784, 0.160784, 0.160784, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/CanvasLayer/Pause/Fill"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 30
-
-[node name="Label" type="Label" parent="UI/CanvasLayer/Pause/Fill/VBoxContainer"]
+[node name="Label" type="Label" parent="UI/CanvasLayer/Pause/Fill"]
 texture_filter = 2
 layout_mode = 2
+offset_right = 252.0
+offset_bottom = 60.0
 theme = ExtResource("5_m3e2d")
 theme_override_font_sizes/font_size = 0
 text = "Paused"
 horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/CanvasLayer/Pause/Fill/VBoxContainer"]
+[node name="Menu" type="VBoxContainer" parent="UI/CanvasLayer/Pause/Fill"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.25
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+metadata/_edit_use_anchors_ = true
+
+[node name="PauseMenu" type="VBoxContainer" parent="UI/CanvasLayer/Pause/Fill/Menu"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="Tutorial" type="Button" parent="UI/CanvasLayer/Pause/Fill/VBoxContainer/VBoxContainer"]
+[node name="Tutorial" type="Button" parent="UI/CanvasLayer/Pause/Fill/Menu/PauseMenu"]
 texture_filter = 2
 layout_mode = 2
 theme = ExtResource("6_qf26s")
 text = "How to Play"
 
-[node name="Settings" type="Button" parent="UI/CanvasLayer/Pause/Fill/VBoxContainer/VBoxContainer"]
+[node name="Settings" type="Button" parent="UI/CanvasLayer/Pause/Fill/Menu/PauseMenu"]
 texture_filter = 2
 layout_mode = 2
 theme = ExtResource("6_qf26s")
 text = "Settings
 "
 
-[node name="Quit" type="Button" parent="UI/CanvasLayer/Pause/Fill/VBoxContainer/VBoxContainer"]
+[node name="Quit" type="Button" parent="UI/CanvasLayer/Pause/Fill/Menu/PauseMenu"]
 texture_filter = 2
 layout_mode = 2
 theme = ExtResource("6_qf26s")
-text = "Quit"
+text = "Quit Game"
+
+[node name="SettingsMenu" type="VBoxContainer" parent="UI/CanvasLayer/Pause/Fill"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.146825
+anchor_top = 0.251572
+anchor_right = 0.853175
+anchor_bottom = 1.00314
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+metadata/_edit_use_anchors_ = true
+
+[node name="SoundLabel" type="Label" parent="UI/CanvasLayer/Pause/Fill/SettingsMenu"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mqcok")
+theme_override_font_sizes/font_size = 30
+text = "Sound:"
+
+[node name="VolumeChanger" parent="UI/CanvasLayer/Pause/Fill/SettingsMenu/SoundLabel" instance=ExtResource("8_sb77x")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.634831
+anchor_top = -0.0555556
+anchor_right = 0.960674
+anchor_bottom = 1.05556
+offset_right = 0.0
+offset_bottom = 0.0
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_hjrk5")
+metadata/_edit_use_anchors_ = true
+
+[node name="Back" type="Button" parent="UI/CanvasLayer/Pause/Fill/SettingsMenu"]
+layout_mode = 2
+theme = ExtResource("6_qf26s")
+text = "Back"
 
 [node name="TileMap" type="TileMap" parent="."]
 scale = Vector2(4, 4)
@@ -648,14 +700,10 @@ unique_name_in_owner = true
 wait_time = 305.0
 one_shot = true
 
-[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
-process_mode = 1
-stream = ExtResource("19_7khdq")
-volume_db = -20.0
-autoplay = true
-
 [connection signal="pressed" from="UI/CanvasLayer/Closing/End of Shift Report/PlayAgain" to="." method="_on_play_again_pressed"]
 [connection signal="pressed" from="UI/CanvasLayer/Closing/End of Shift Report/Quit" to="." method="_on_quit_pressed"]
-[connection signal="pressed" from="UI/CanvasLayer/Pause/Fill/VBoxContainer/VBoxContainer/Quit" to="UI/CanvasLayer/Pause" method="_on_quit_pressed"]
+[connection signal="pressed" from="UI/CanvasLayer/Pause/Fill/Menu/PauseMenu/Settings" to="UI/CanvasLayer/Pause" method="_on_settings_pressed"]
+[connection signal="pressed" from="UI/CanvasLayer/Pause/Fill/Menu/PauseMenu/Quit" to="UI/CanvasLayer/Pause" method="_on_quit_pressed"]
+[connection signal="pressed" from="UI/CanvasLayer/Pause/Fill/SettingsMenu/Back" to="UI/CanvasLayer/Pause" method="_on_back_pressed"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="Clock" to="." method="_on_clock_timeout"]

@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://b8jx1mlesv60x"]
+
+[ext_resource type="FontFile" uid="uid://cj4xh5kkdd2us" path="res://Assets/Fonts/Roboto-Bold.ttf" id="1_ixv1a"]
+[ext_resource type="Script" path="res://Assets/Scenes/VolumeChanger.gd" id="2_glfwq"]
+[ext_resource type="AudioStream" uid="uid://rxiusmmj223u" path="res://Assets/Sounds/fancyrestaurant.wav" id="3_vbgq3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sye7k"]
+bg_color = Color(0.498039, 0.141176, 0.141176, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_65x63"]
+
+[node name="VolumeChanger" type="LineEdit"]
+texture_filter = 2
+offset_right = 100.0
+offset_bottom = 64.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/selection_color = Color(0.796078, 0.270588, 0.266667, 1)
+theme_override_constants/minimum_character_width = 0
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("1_ixv1a")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_sye7k")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_65x63")
+text = "100"
+alignment = 1
+max_length = 3
+context_menu_enabled = false
+middle_mouse_paste_enabled = false
+drag_and_drop_selection_enabled = false
+select_all_on_focus = true
+caret_blink = true
+script = ExtResource("2_glfwq")
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_vbgq3")
+volume_db = -20.0
+autoplay = true
+
+[connection signal="text_changed" from="." to="." method="_on_text_changed"]
+[connection signal="text_submitted" from="." to="." method="_on_text_submitted"]

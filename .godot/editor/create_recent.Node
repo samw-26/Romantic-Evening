@@ -1,10 +1,10 @@
+Button
+Label
+VBoxContainer
 LineEdit
 Control
 Node
-Label
 HScrollBar
-Button
-VBoxContainer
 AudioStreamPlayer
 CollisionShape2D
 Area2D

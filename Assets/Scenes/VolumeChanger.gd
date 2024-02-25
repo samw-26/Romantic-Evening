@@ -1,14 +1,13 @@
 extends LineEdit
 
 var music: AudioStreamPlayer
-var default_db: int = -20
 var regEx: RegEx
 var old_text: String = ""
 
 func _ready() -> void:
 	music = %BackgroundMusic
-	music.set_volume_db(default_db)
-	text = str((default_db + 50) * 2)
+	music.set_volume_db(Global.volume)
+	text = str((Global.volume + 50) * 2)
 	regEx = RegEx.new()
 	regEx.compile("[^0-9]")
 
@@ -20,7 +19,7 @@ func _on_text_submitted(new_text: String) -> void:
 		set_volume(100)
 	else:
 		set_volume(volume)
-	caret_column = new_text.length()
+	release_focus()
 func _on_text_changed(new_text: String) -> void:
 	if regEx.search(new_text):
 		text = old_text
@@ -29,10 +28,12 @@ func _on_text_changed(new_text: String) -> void:
 		old_text = text
 
 func set_volume(value: int) -> void:
+	var db: float
 	if value != 0:
+		db = value*0.5 - 50
 		music.set_stream_paused(false)
-		music.set_volume_db(value*0.5 - 50)
+		music.set_volume_db(db)
 	else:
 		music.set_stream_paused(true)
 	text = str(value)
-	Global.volume = value
+	Global.volume = db
