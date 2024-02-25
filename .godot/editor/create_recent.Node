@@ -1,5 +1,6 @@
 Button
 Label
+ColorRect
 VBoxContainer
 LineEdit
 Control
@@ -11,4 +12,3 @@ Area2D
 AnimationPlayer
 AudioStreamPlayer2D
 Timer
-Sprite2D

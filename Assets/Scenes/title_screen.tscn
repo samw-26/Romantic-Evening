@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://mije76kp1ljb"]
+[gd_scene load_steps=7 format=3 uid="uid://mije76kp1ljb"]
 
 [ext_resource type="Script" path="res://Assets/Scenes/title_screen.gd" id="1_4f6n6"]
 [ext_resource type="FontFile" uid="uid://cbxlxb8k77sh3" path="res://Assets/Fonts/DancingScript-Bold.ttf" id="1_6vahd"]
 [ext_resource type="Texture2D" uid="uid://27tet1huonr8" path="res://Assets/UI/heart.png" id="2_fcpfs"]
 [ext_resource type="Theme" uid="uid://c8ejyqahojvk0" path="res://Assets/Fonts/buttontheme.tres" id="4_bwiuo"]
 [ext_resource type="PackedScene" uid="uid://b8jx1mlesv60x" path="res://Assets/Scenes/volume_changer.tscn" id="5_ke042"]
+[ext_resource type="PackedScene" uid="uid://bo35d17fybqhx" path="res://Assets/Scenes/tutorial.tscn" id="6_ddgt8"]
 
 [node name="TitleScreen" type="Control"]
 layout_mode = 3
@@ -60,7 +61,6 @@ texture = ExtResource("2_fcpfs")
 
 [node name="MainContainer" type="VBoxContainer" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -109,6 +109,7 @@ text = "Quit"
 
 [node name="OptionsContainer" type="VBoxContainer" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -145,6 +146,11 @@ texture_filter = 2
 layout_mode = 2
 theme = ExtResource("4_bwiuo")
 text = "Back"
+
+[node name="TutorialScreen" parent="." instance=ExtResource("6_ddgt8")]
+unique_name_in_owner = true
+layout_mode = 2
+anchors_preset = 0
 
 [connection signal="pressed" from="MainContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="MainContainer/Tutorial" to="." method="_on_tutorial_pressed"]

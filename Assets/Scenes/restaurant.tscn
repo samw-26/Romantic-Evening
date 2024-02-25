@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://cswo4n3ie6y7x"]
+[gd_scene load_steps=37 format=3 uid="uid://cswo4n3ie6y7x"]
 
 [ext_resource type="Script" path="res://Assets/Scenes/restaurant.gd" id="1_gjta4"]
 [ext_resource type="Texture2D" uid="uid://1uwv1qr6ai1q" path="res://Assets/Restaurant/WoodFloor1.png" id="2_6ls2i"]
@@ -16,6 +16,7 @@
 [ext_resource type="Theme" uid="uid://cfnnw8wbr1jch" path="res://Assets/Fonts/menubutton.tres" id="6_qf26s"]
 [ext_resource type="PackedScene" uid="uid://b8jx1mlesv60x" path="res://Assets/Scenes/volume_changer.tscn" id="8_sb77x"]
 [ext_resource type="PackedScene" uid="uid://voiqnn8bhniv" path="res://Assets/Scenes/chair.tscn" id="8_xtd84"]
+[ext_resource type="PackedScene" uid="uid://bo35d17fybqhx" path="res://Assets/Scenes/tutorial.tscn" id="9_yngq2"]
 [ext_resource type="Texture2D" uid="uid://csibl51krhjh2" path="res://Assets/Restaurant/carpet.png" id="11_pklt8"]
 [ext_resource type="PackedScene" uid="uid://dn85x2w8551o8" path="res://Assets/Scenes/plate.tscn" id="11_t3kre"]
 [ext_resource type="PackedScene" uid="uid://cu2vrlxipumk5" path="res://Assets/Scenes/trash_can.tscn" id="12_1dcmu"]
@@ -363,6 +364,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_8248e")
 text = "Quit"
 
 [node name="Pause" type="Control" parent="UI/CanvasLayer"]
+unique_name_in_owner = true
 process_mode = 3
 visible = false
 texture_filter = 2
@@ -488,6 +490,10 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 2
 theme = ExtResource("6_qf26s")
 text = "Back"
+
+[node name="Tutorial" parent="UI/CanvasLayer" instance=ExtResource("9_yngq2")]
+unique_name_in_owner = true
+visible = false
 
 [node name="TileMap" type="TileMap" parent="."]
 scale = Vector2(4, 4)
@@ -702,6 +708,7 @@ one_shot = true
 
 [connection signal="pressed" from="UI/CanvasLayer/Closing/End of Shift Report/PlayAgain" to="." method="_on_play_again_pressed"]
 [connection signal="pressed" from="UI/CanvasLayer/Closing/End of Shift Report/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="UI/CanvasLayer/Pause/Fill/Menu/PauseMenu/Tutorial" to="UI/CanvasLayer/Pause" method="_on_tutorial_pressed"]
 [connection signal="pressed" from="UI/CanvasLayer/Pause/Fill/Menu/PauseMenu/Settings" to="UI/CanvasLayer/Pause" method="_on_settings_pressed"]
 [connection signal="pressed" from="UI/CanvasLayer/Pause/Fill/Menu/PauseMenu/Quit" to="UI/CanvasLayer/Pause" method="_on_quit_pressed"]
 [connection signal="pressed" from="UI/CanvasLayer/Pause/Fill/SettingsMenu/Back" to="UI/CanvasLayer/Pause" method="_on_back_pressed"]

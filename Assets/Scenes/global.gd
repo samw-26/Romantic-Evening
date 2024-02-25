@@ -38,6 +38,9 @@ var final_label: Label
 #Audio
 var volume: float = -20
 
+#Title
+var in_title: bool = true
+
 #Animation control
 func animate(anim: AnimatedSprite2D, direction: Vector2):
 	if direction == Vector2.ZERO:

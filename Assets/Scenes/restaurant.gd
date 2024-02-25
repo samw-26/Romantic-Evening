@@ -4,6 +4,7 @@ var couple_scene: PackedScene = preload("res://Assets/Scenes/couple.tscn")
 
 func _ready() -> void:
 	#Setup
+	Global.in_title = false
 	%Closing.hide()
 	%Quota.text = "Quota: $"+str(Global.quota)
 	Global.chairs = get_tree().get_nodes_in_group("chair")

@@ -1,0 +1,94 @@
+[gd_scene load_steps=4 format=3 uid="uid://bo35d17fybqhx"]
+
+[ext_resource type="Theme" uid="uid://bv2rqnamjcwrb" path="res://Assets/Fonts/default.tres" id="1_lm21c"]
+[ext_resource type="Script" path="res://Assets/Scenes/tutorial.gd" id="1_y71qr"]
+[ext_resource type="Theme" uid="uid://cfnnw8wbr1jch" path="res://Assets/Fonts/menubutton.tres" id="3_n2wha"]
+
+[node name="Tutorial" type="ColorRect"]
+texture_filter = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.152941, 0.152941, 0.152941, 1)
+script = ExtResource("1_y71qr")
+
+[node name="WorkArea" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.03125
+anchor_top = 0.0555556
+anchor_right = 0.96875
+anchor_bottom = 0.944444
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.203922, 0.203922, 0.203922, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Title" type="Label" parent="WorkArea"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme = ExtResource("1_lm21c")
+theme_override_font_sizes/font_size = 100
+text = "How To Play"
+horizontal_alignment = 1
+
+[node name="Controls" type="Label" parent="WorkArea"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0266667
+anchor_top = 0.215
+anchor_right = 0.555333
+anchor_bottom = 0.52625
+grow_vertical = 2
+theme = ExtResource("1_lm21c")
+theme_override_font_sizes/font_size = 40
+text = "Controls: 
+WASD or Arrow Keys for Movement
+E: Grab Trash
+R: Trash food"
+metadata/_edit_use_anchors_ = true
+
+[node name="Gameplay" type="Label" parent="WorkArea"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.576667
+anchor_top = 0.215
+anchor_right = 0.965333
+anchor_bottom = 0.905
+offset_bottom = 3.05176e-05
+grow_horizontal = 0
+theme = ExtResource("1_lm21c")
+theme_override_font_sizes/font_size = 40
+text = "Gameplay:
+1. Walk to customers tables to take their orders
+
+2. Grab their orders from the counter and bring it to them.
+
+3. Meet quota by serving customers quickly!
+
+4. Have Fun!"
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Back" type="Button" parent="WorkArea"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.89875
+anchor_right = 0.15
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("3_n2wha")
+theme_override_font_sizes/font_size = 60
+text = "Back"
+
+[connection signal="pressed" from="WorkArea/Back" to="." method="_on_back_pressed"]
