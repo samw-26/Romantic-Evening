@@ -14,7 +14,6 @@ config/name="Romantic Evening"
 run/main_scene="res://Assets/Scenes/title_screen.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://plateicon.png"
-config/windows_native_icon="res://plate.ico"
 
 [autoload]
 
