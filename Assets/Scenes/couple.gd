@@ -1,5 +1,7 @@
 class_name Couple
 extends CharacterBody2D
+## Controls couple behaviour such as movement, tipping, ordering, and leaving.
+
 
 var center: int = 722
 var row_diff: int = 80
@@ -26,6 +28,7 @@ var in_range: bool = false
 var table: Node2D
 var table_destination: Vector2
 var direction: Vector2 = Vector2.ZERO
+var current_table: Table
 
 #Ordering/Dining
 var drink_options: Array = ["Water", "Wine", "Beer"]
@@ -210,14 +213,19 @@ func order() -> void:
 		elif has_ordered:
 			if !order1_received:
 				order1_received = Global.waiter.serve_food(man_orders[course_counter])
+				
 				if order1_received:
 					man_food_sprites[course_counter].hide()
 					man_bubble.hide()
+					current_table.display_food(man_orders[course_counter],"")
+					
 			if !order2_received:
 				order2_received = Global.waiter.serve_food(woman_orders[course_counter])
+				
 				if order2_received:
 					woman_food_sprites[course_counter].hide()
 					woman_bubble.hide()
+					current_table.display_food("",woman_orders[course_counter])
 
 	#Stop timers, commence eating
 	if order1_received and order2_received:
@@ -228,18 +236,16 @@ func order() -> void:
 func exit_restaurant() -> void:
 	$Area2D.monitoring = false
 	at_table = false
+
 	if love_bar.visible:
 		love_bar.visible = false
+
 	if !give_tip:
-		#Bonus tip
-		#if love_bar.value == love_bar.max_value:
-			#Global.tip += int(100)
-			#tip = 100
-		#else:
 		Global.tip += int(love_bar.value)
 		tip = int(love_bar.value)
 		Global.tip_label.text = "Tips: $" + str(Global.tip)
 		give_tip = true
+
 	if(!freed_table):
 		Global.available_chairs.append(table)
 		%ManOrder.hide()
@@ -271,7 +277,10 @@ func _on_status_timer_timeout() -> void:
 	#Hunger status
 	if !eating:
 		if !order1_received or !order2_received:
-			%WarningTimer.start()
+			if love_bar.value == 0:
+				%WarningTimer.start()
+			else:
+				%LoveTimer.start()
 		if !order1_received and !order2_received:
 			%FlickerTimerMan.start()
 			%FlickerTimerWoman.start()
@@ -313,6 +322,7 @@ func eye_frame(dir: Vector2):
 		eyes.frame = 0
 
 func _on_meal_timer_timeout() -> void:
+	current_table.hide_food()
 	course_counter += 1
 	love_bar.value += max_expected_love - love_bar.value - love_lost
 	if course_counter > 2:

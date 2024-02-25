@@ -1,3 +1,5 @@
+Node2D
+Sprite2D
 Button
 Label
 ColorRect
@@ -10,5 +12,3 @@ AudioStreamPlayer
 CollisionShape2D
 Area2D
 AnimationPlayer
-AudioStreamPlayer2D
-Timer

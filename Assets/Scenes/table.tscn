@@ -1,7 +1,17 @@
-[gd_scene load_steps=8 format=3 uid="uid://f8qnj2x0y1cs"]
+[gd_scene load_steps=18 format=3 uid="uid://f8qnj2x0y1cs"]
 
 [ext_resource type="Texture2D" uid="uid://bb2v8aci808ry" path="res://Assets/Restaurant/table.png" id="1_23l6n"]
 [ext_resource type="Script" path="res://Assets/Scenes/table.gd" id="1_wgxtd"]
+[ext_resource type="Texture2D" uid="uid://bb1poeibdwrv3" path="res://Assets/Food/Plate.png" id="3_xw1ot"]
+[ext_resource type="Texture2D" uid="uid://cyy7r71dq4ppy" path="res://Assets/Food/water.png" id="4_rsyjd"]
+[ext_resource type="Texture2D" uid="uid://dos6llri8yvei" path="res://Assets/Food/wine.png" id="5_nfr30"]
+[ext_resource type="Texture2D" uid="uid://eockmq2nxdn4" path="res://Assets/Food/beer.png" id="6_5lq7n"]
+[ext_resource type="Texture2D" uid="uid://bhvc2lkfnv1tl" path="res://Assets/Food/steak.png" id="7_xw58q"]
+[ext_resource type="Texture2D" uid="uid://1jukbyg3apdg" path="res://Assets/Food/Spaghetti.png" id="8_rsm30"]
+[ext_resource type="Texture2D" uid="uid://b2vee5f37yhkq" path="res://Assets/Food/salad.png" id="9_l7l4n"]
+[ext_resource type="Texture2D" uid="uid://c3kwuv2ge6bht" path="res://Assets/Food/icecream.png" id="10_dsvln"]
+[ext_resource type="Texture2D" uid="uid://dwh35s7km3weq" path="res://Assets/Food/chocolatecake.png" id="11_7uuaq"]
+[ext_resource type="Texture2D" uid="uid://due1mq4ekpum4" path="res://Assets/Food/pumpkinpie.png" id="12_dhjgh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oul7g"]
 size = Vector2(34, 8.25)
@@ -101,6 +111,125 @@ script = ExtResource("1_wgxtd")
 scale = Vector2(6, 6)
 texture = ExtResource("1_23l6n")
 
+[node name="ManFood" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-15, -10)
+scale = Vector2(2, 2)
+
+[node name="Plate" type="Sprite2D" parent="ManFood"]
+visible = false
+texture = ExtResource("3_xw1ot")
+
+[node name="Water" type="Sprite2D" parent="ManFood"]
+visible = false
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("4_rsyjd")
+
+[node name="Wine" type="Sprite2D" parent="ManFood"]
+visible = false
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("5_nfr30")
+
+[node name="Beer" type="Sprite2D" parent="ManFood"]
+visible = false
+position = Vector2(0, -1.5)
+scale = Vector2(-0.8, 0.8)
+texture = ExtResource("6_5lq7n")
+
+[node name="Steak" type="Sprite2D" parent="ManFood"]
+visible = false
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_xw58q")
+
+[node name="Spaghetti" type="Sprite2D" parent="ManFood"]
+visible = false
+position = Vector2(0, -1)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("8_rsm30")
+
+[node name="Salad" type="Sprite2D" parent="ManFood"]
+visible = false
+position = Vector2(0, -1.5)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("9_l7l4n")
+
+[node name="Icecream" type="Sprite2D" parent="ManFood"]
+visible = false
+position = Vector2(0, -2.5)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("10_dsvln")
+
+[node name="ChocolateCake" type="Sprite2D" parent="ManFood"]
+visible = false
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_7uuaq")
+
+[node name="PumpkinPie" type="Sprite2D" parent="ManFood"]
+visible = false
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("12_dhjgh")
+
+[node name="WomanFood" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(15, -10)
+scale = Vector2(2, 2)
+
+[node name="Plate" type="Sprite2D" parent="WomanFood"]
+visible = false
+texture = ExtResource("3_xw1ot")
+
+[node name="Water" type="Sprite2D" parent="WomanFood"]
+visible = false
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("4_rsyjd")
+
+[node name="Wine" type="Sprite2D" parent="WomanFood"]
+visible = false
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("5_nfr30")
+
+[node name="Beer" type="Sprite2D" parent="WomanFood"]
+visible = false
+position = Vector2(0, -1.5)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("6_5lq7n")
+
+[node name="Steak" type="Sprite2D" parent="WomanFood"]
+visible = false
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_xw58q")
+
+[node name="Spaghetti" type="Sprite2D" parent="WomanFood"]
+visible = false
+position = Vector2(0, -1)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("8_rsm30")
+
+[node name="Salad" type="Sprite2D" parent="WomanFood"]
+visible = false
+position = Vector2(0, -1.5)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("9_l7l4n")
+
+[node name="Icecream" type="Sprite2D" parent="WomanFood"]
+visible = false
+position = Vector2(0, -2.5)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("10_dsvln")
+flip_h = true
+
+[node name="ChocolateCake" type="Sprite2D" parent="WomanFood"]
+visible = false
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_7uuaq")
+flip_h = true
+
+[node name="PumpkinPie" type="Sprite2D" parent="WomanFood"]
+visible = false
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("12_dhjgh")
+flip_h = true
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2(0, 4)
@@ -131,7 +260,6 @@ libraries = {
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-visible = false
 position = Vector2(0, 38.5)
 shape = SubResource("RectangleShape2D_f5cw0")
 

@@ -119,7 +119,8 @@ func cook(order: String) -> void:
 			plate.food_ready(order)
 			return
 	priority_queue.push_front(order)
-	
+
+
 func food_waiting(order: String):
 	for plate in plates:
 		if plate.available:
