@@ -54,7 +54,7 @@ func _on_clock_timeout() -> void:
 
 func _on_play_again_pressed() -> void:
 	if Global.tip >= Global.quota:
-		Global.quota += 200
+		Global.quota += 100
 	Global.closing = false
 	Global.in_menu = false
 	get_tree().paused = false
