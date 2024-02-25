@@ -22,6 +22,13 @@ func _ready() -> void:
 	Global.quota_end = %QuotaResult
 	Global.tip_end = %TipsResult
 	Global.final_label = %FinalResult
+	
+	#Reset values
+	Global.couple_count = 0
+	Global.tip = 0
+	Global.order_queue = []
+	Global.priority_queue = []
+	Global.extra_food = []
 	#Start game
 	Global.game_started = true
 	#Wait before starting spawning

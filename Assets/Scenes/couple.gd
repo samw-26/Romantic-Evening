@@ -66,9 +66,9 @@ var has_triggered_animation = false
 
 #Love bar
 var love_bar: ProgressBar
-var love_lost: int = 0 
-var max_expected_love: int = 0
-
+var love_lost: float = 0.0 
+var max_expected_love: float = 0
+var love_increment: float
 
 func _ready() -> void:
 	#Animation nodes
@@ -112,7 +112,8 @@ func _ready() -> void:
 	love_bar = %LoveBar as ProgressBar
 	love_bar.hide()
 	love_bar.value = 0
-	max_expected_love = int(meal_timer.get_wait_time())
+	love_increment = float(love_bar.max_value) / 60
+	max_expected_love = meal_timer.get_wait_time() * love_increment
 	
 	#Get random table
 	table = Global.request_table()
@@ -333,7 +334,7 @@ func _on_meal_timer_timeout() -> void:
 	elif course_counter == 2:
 		meal_timer.set_wait_time(15)
 	if !finished:
-		max_expected_love += int(meal_timer.get_wait_time())
+		max_expected_love += meal_timer.get_wait_time() * love_bar.max_value/60
 		eating = false
 		hunger_started = false
 		has_ordered = false
@@ -342,7 +343,7 @@ func _on_meal_timer_timeout() -> void:
 		%LoveTimer.stop()
 
 func _on_love_timer_timeout() -> void:
-	if love_bar.value < 1 and !eating:
+	if love_bar.value <= 0 and !eating:
 		finished = true
 		if has_ordered:
 			if !order1_received:
@@ -351,10 +352,10 @@ func _on_love_timer_timeout() -> void:
 				Global.extra_food.append(woman_orders[course_counter])
 		%LoveTimer.stop()
 	if !eating:
-		love_bar.value -= 1
-		love_lost += 1
+		love_bar.value -= love_increment
+		love_lost += love_increment
 	else:
-		love_bar.value += 1
+		love_bar.value += love_increment
 
 func _on_warning_timer_timeout() -> void:
 	%LoveTimer.start()
