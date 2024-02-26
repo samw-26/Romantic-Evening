@@ -12,6 +12,8 @@ func _input(event: InputEvent) -> void:
 	elif event.is_action_pressed("pause") and !Global.in_menu and get_tree().paused:
 		hide()
 		%Tutorial.hide()
+		%SettingsMenu.hide()
+		%PauseMenu.show()
 		get_tree().paused = false
 
 func _on_settings_pressed() -> void:
