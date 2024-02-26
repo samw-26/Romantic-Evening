@@ -149,6 +149,7 @@ text = "Back"
 
 [node name="TutorialScreen" parent="." instance=ExtResource("6_ddgt8")]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 anchors_preset = 0
 
