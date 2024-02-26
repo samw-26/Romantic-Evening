@@ -237,6 +237,9 @@ func order() -> void:
 func exit_restaurant() -> void:
 	$Area2D.monitoring = false
 	at_table = false
+	if current_table != null:
+		if !current_table.current_foods.is_empty():
+			current_table.hide_food()
 
 	if love_bar.visible:
 		love_bar.visible = false
@@ -282,13 +285,7 @@ func _on_status_timer_timeout() -> void:
 				%WarningTimer.start()
 			else:
 				%LoveTimer.start()
-		if !order1_received and !order2_received:
-			%FlickerTimerMan.start()
-			%FlickerTimerWoman.start()
-		elif !order1_received:
-			%FlickerTimerMan.start()
-		elif !order2_received:
-			%FlickerTimerWoman.start()
+		flicker_check()
 
 func _on_flicker_timer_man_timeout() -> void:
 	#Hunger
@@ -352,6 +349,7 @@ func _on_love_timer_timeout() -> void:
 				Global.extra_food.append(woman_orders[course_counter])
 		%LoveTimer.stop()
 	if !eating:
+		flicker_check()
 		love_bar.value -= love_increment
 		love_lost += love_increment
 	else:
@@ -359,3 +357,14 @@ func _on_love_timer_timeout() -> void:
 
 func _on_warning_timer_timeout() -> void:
 	%LoveTimer.start()
+	
+
+func flicker_check() -> void:
+	if %FlickerTimerMan.is_stopped() or %FlickerTimerWoman.is_stopped():
+		if !order1_received and !order2_received:
+			%FlickerTimerMan.start()
+			%FlickerTimerWoman.start()
+		elif !order1_received:
+			%FlickerTimerMan.start()
+		elif !order2_received:
+			%FlickerTimerWoman.start()

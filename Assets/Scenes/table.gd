@@ -45,10 +45,12 @@ func display_food(man_order: String, woman_order: String) -> void:
 ## Hides food and plate
 func hide_food() -> void:
 	%ManFood/Plate.hide()
-	current_foods[0].hide()
+	if current_foods[0] != null:
+		current_foods[0].hide()
 	
 	%WomanFood/Plate.hide()
-	current_foods[1].hide()
+	if current_foods[1] != null:
+		current_foods[1].hide()
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
